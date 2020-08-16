@@ -66,9 +66,7 @@ class mainThread(threading.Thread):
 		
 	def run(self):
 		global quitEvent
-		region = self.region
-		conn = sqlite3.connect(self.database)
-		cursor = conn.cursor()		
+		region = self.region		
 		starting_rank_idx, starting_division_idx,starting_page = load_progress(region)
 		self.logger.info(f"starting at {starting_rank_idx}, {starting_division_idx}, {starting_page}")
 		rank_idx = starting_rank_idx
@@ -87,20 +85,12 @@ class mainThread(threading.Thread):
 					resp = requests.get(req,headers=payload)
 					time.sleep(1/rate)
 					data = json.loads(resp.content)
-					if resp.ok and data != []:
+					if resp.ok and data != []: #everything went correctly
 						page+=1
-						if not quitEvent.is_set():
-							with self.lock:
-								for d in data:								
-									query = "INSERT INTO summoners(summonerId, summonerName, tier, rank, region) "\
-											f"VALUES ('{d['summonerId']}','{d['summonerName']}','{d['tier']}','{d['rank']}','{self.region}')"									
-									cursor.execute(query)
-								self.logger.info(f"Committing {len(data)} entries to database")
-								conn.commit()			
+						self.write_data(data)	
 					elif resp.ok and data==[]: #reached the end of pages
 						break
-					else: # resp was not okay
-						#print(resp)
+					else: # resp was not okay						
 						if resp.status_code == 429:
 							self.logger.warning("429 Rate limite exceeded, waiting another cycle")
 							time.sleep(1/rate)
@@ -117,6 +107,18 @@ class mainThread(threading.Thread):
 			starting_division_idx = 0			
 			rank_idx += 1
 		self.msg = "done"
+	
+	def write_data(self, data):
+		conn = sqlite3.connect(self.database)
+		cursor = conn.cursor()
+		if not quitEvent.is_set():
+			with self.lock:
+				for d in data:								
+					query = "INSERT INTO summoners(summonerId, summonerName, tier, rank, region) "\
+							f"VALUES ('{d['summonerId']}','{d['summonerName']}','{d['tier']}','{d['rank']}','{self.region}')"									
+					cursor.execute(query)
+				self.logger.info(f"Committing {len(data)} entries to database")
+				conn.commit()
 
 		
 threads = list()

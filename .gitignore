@@ -3,3 +3,5 @@ __pycache__
 data
 backup
 progress*.txt
+league_data_notebook.ipynb
+.ipynb_checkpoints
