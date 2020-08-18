@@ -9,6 +9,11 @@ payload = {
 rate = 90/120 # the rate at which to make new requests. Inverse for sleep timer
 regions = ['na1','br1','eun1','euw1','jp1','kr','la1','la2','oc1','ru','tr1']#na1 also
 
+pgUsername = ""
+pgPassword = ""
+with open('pguser.txt','r') as f:
+	pgUsername = f.readline().strip()
+	pgPassword = f.readline().strip()
 
 def write_list(l, filename):
 	filename = add_txt_ext(filename)
