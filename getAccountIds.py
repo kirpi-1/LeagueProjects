@@ -23,78 +23,50 @@ signal.signal(signal.SIGINT, signal_handler)
 
 database = "data/data.db"
 
-def main(region):
-	checkpoint = 1350
-	filename = f'./data/summoners_{region}.csv'
-	df = pd.read_csv(filename)    
-	totalItems = len(df)
-	print(filename)
-	count = 0
-	index = 0
-	while index< len(df):
-		print(f'\r\t{index} of {totalItems}',end="")
-		summonerId = df['summonerId'][index]
-		if pd.isnull(df['accountId'][index]):
-			req = f'https://{region}.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}'
-			resp = requests.get(req, headers=payload)
-			time.sleep(1/rate)
-			if resp.ok:
-				data = json.loads(resp.content)
-				df['accountId'][index] = data['accountId']
-				count += 1
-				index += 1
-			else:
-				if resp.status_code == 403:
-					raise Exception(f"bad response from server: {resp.status_code}")				
-		else:
-			index += 1
-		if count>=checkpoint:
-			print(f'\ncheckpoint')
-			df.to_csv(filename,index=False)
-			count = 0
-			print()
-		
-	df.to_csv(filename,index=False)
-	print()
-
-
 class mainThread(threading.Thread):
-	def __init__(self, region, lock, tiers, database = 'league', batchsize = 100, group=None, target=None, name=None, args=(), kwargs=None,daemon=None):
+	def __init__(self, region, tiers, database = 'league', batchsize = 100, group=None, target=None, name=None, args=(), kwargs=None,daemon=None):
 		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)
 		self.region = region
 		self.batchsize = batchsize
 		self.count = 0
-		self.index = 0		
-		self.lock = lock
+		self.index = 0				
 		self.database = database
 		self.itemsLeft = -1		
-		self.msg = ""		
+		self.msg = "init"		
 		self.tiers = tiers
 		self.logger = utils.set_up_logger(name=region,file=f"data/status_{region}.log")	
 		self.countQuery = ""
 		
 	def run(self):
 		global quitEvent
-		conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword)
-		#conn = sqlite3.connect(self.database)
-		cursor = conn.cursor()
-		self.logger.info("conneted to database")
-		for tier in self.tiers:
-			if quitEvent.is_set():
-				return;
+		conn = None
+		cursor = None
+		self.msg = "cnct"
+		
+		while not quitEvent.is_set() and conn == None:
+			try:
+				self.logger.info("trying to connect to database")
+				conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword)
+				cursor = conn.cursor()				
+			except Exception as err:
+				self.logger.error(err)
+				self.msg = "NC"
+				time.sleep(5)
+		self.msg = "SUCC"
+		if quitEvent.is_set():
+				return;		
+		for tier in self.tiers:			
 			self.logger.info(f"Starting {tier}")
 			self.countQuery = f"SELECT COUNT(*) FROM summoners WHERE region='{self.region}' AND tier='{tier}' AND accountId is NULL"
 			query = f"SELECT * FROM summoners WHERE region='{self.region}' "\
 					f"AND tier='{tier}' AND accountId is NULL LIMIT {self.batchsize}"		
-			#with self.lock:	
 			cursor.execute(self.countQuery)
 			self.itemsLeft, = cursor.fetchone()				
-				
+			self.msg = self.itemsLeft
 			while self.itemsLeft > 0 and not quitEvent.is_set():
 				self.msg = str(self.itemsLeft)			
 				records = None
 				cols = None
-				#with self.lock:
 				cursor.execute(query)
 				records = cursor.fetchall()
 				cols = [d[0] for d in cursor.description]
@@ -131,6 +103,11 @@ class mainThread(threading.Thread):
 					if accountId!=None:
 						records[idx] = (record[0],record[1],record[2],record[3],record[4],accountId)
 				self.write_data(records,cols, conn)
+			
+			if quitEvent.is_set():
+				return;
+		self.msg = "DONE"
+		self.logger.info("Complete")
 				
 	def write_data(self, records, cols, conn):		
 		cursor = conn.cursor()
@@ -151,16 +128,14 @@ class mainThread(threading.Thread):
 			cursor.execute(self.countQuery)
 			self.itemsLeft, = cursor.fetchone()
 			self.logger.info(f"Comitting {recordCount} new entries to database, {self.itemsLeft} items left")
+			self.msg = str(self.itemsLeft)
 					
-
-
-
 
 threads = list()
 
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
-	thread = mainThread(region, lock = lock, tiers=['PLATINUM','DIAMOND','MASTER','GRANDMASTER','CHALLENGER'],
+	thread = mainThread(region, tiers=['PLATINUM','DIAMOND','MASTER','GRANDMASTER','CHALLENGER'],
 						batchsize=100)
 	threads.append(thread)
 
@@ -181,7 +156,7 @@ try:
 				numRunningThreads+=1
 		msg = "\r"
 		for thread in threads:
-			msg = msg+str(thread.itemsLeft)+"\t"
+			msg = msg+str(thread.msg)+"\t"
 		msg+=str(numRunningThreads)+"\t"
 		print(msg,end="")
 		if numRunningThreads==0:
@@ -193,3 +168,41 @@ except KeyboardInterrupt:
 finally:
 	quitEvent.set()
 
+
+
+'''
+
+def main(region):
+	checkpoint = 1350
+	filename = f'./data/summoners_{region}.csv'
+	df = pd.read_csv(filename)    
+	totalItems = len(df)
+	print(filename)
+	count = 0
+	index = 0
+	while index< len(df):
+		print(f'\r\t{index} of {totalItems}',end="")
+		summonerId = df['summonerId'][index]
+		if pd.isnull(df['accountId'][index]):
+			req = f'https://{region}.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}'
+			resp = requests.get(req, headers=payload)
+			time.sleep(1/rate)
+			if resp.ok:
+				data = json.loads(resp.content)
+				df['accountId'][index] = data['accountId']
+				count += 1
+				index += 1
+			else:
+				if resp.status_code == 403:
+					raise Exception(f"bad response from server: {resp.status_code}")				
+		else:
+			index += 1
+		if count>=checkpoint:
+			print(f'\ncheckpoint')
+			df.to_csv(filename,index=False)
+			count = 0
+			print()
+		
+	df.to_csv(filename,index=False)
+	print()
+'''
