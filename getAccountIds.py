@@ -46,7 +46,7 @@ class mainThread(threading.Thread):
 		while not quitEvent.is_set() and conn == None:
 			try:
 				self.logger.info("trying to connect to database")
-				conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword)
+				conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword, host=utils.pgHost)
 				cursor = conn.cursor()				
 			except Exception as err:
 				self.logger.error(err)
@@ -136,7 +136,7 @@ threads = list()
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
 	thread = mainThread(region, tiers=['PLATINUM','DIAMOND','MASTER','GRANDMASTER','CHALLENGER'],
-						batchsize=100)
+						batchsize=100, daemon = True)
 	threads.append(thread)
 
 

@@ -26,12 +26,13 @@ max_num_of_summoners = 1000
 LIMIT_RETRIES = 5
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--log', default = "WARNING", type=str)
+parser.add_argument('--log', default = "INFO", type=str)
 args = parser.parse_args()
 log_level = logging.INFO
 if args.log.lower() in utils.LOG_LEVELS:
 	log_level = utils.LOG_LEVELS[args.log.lower()]
 
+print("log level:",log_level)
 class mainThread(threading.Thread):
 	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 100, group=None, target=None, name=None, args=(), kwargs=None,daemon=None,log_level=logging.INFO):
 		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)
@@ -68,10 +69,10 @@ class mainThread(threading.Thread):
 			if self.conn == None:
 				self.initConn()
 				self.msg = "SUCC"			
-			
-			self.countQuery = f"SELECT COUNT(*) FROM summoners WHERE region='{self.region}' AND tier='{tier}' AND last_accessed is NULL"
+			timestamp_info = "to_timestamp('10/14/2020 01:00', 'MM/DD/YYYY HH24:MI')"
+			self.countQuery = f"SELECT COUNT(*) FROM summoners WHERE region='{self.region}' AND tier='{tier}' AND (last_accessed <= {timestamp_info} OR last_accessed is NULL) ;"
 			query = f"SELECT * FROM summoners WHERE region='{self.region}' "\
-					f"AND tier='{tier}' AND last_accessed is NULL LIMIT {self.batchsize}"		
+					f"AND tier='{tier}' AND (last_accessed <= {timestamp_info} OR last_accessed is NULL) LIMIT {self.batchsize}"		
 			
 			self.getItemsLeft(tier)
 			self.msg = self.itemsLeft
@@ -103,6 +104,7 @@ class mainThread(threading.Thread):
 						data = json.loads(resp.content)						
 						# get only soloqueue summoner's rift
 						gameIds = [g['gameId'] for g in data['matches'] if g['queue']==420]
+						#gameCreation = [g['timestamp'] for g in data['matches'] if g['queue']==420]
 						accountList.append(accountId)
 						gameList = gameList + gameIds
 					else:					
@@ -129,9 +131,7 @@ class mainThread(threading.Thread):
 					return;
 				count += 1
 				
-				self.getItemsLeft(tier)
-				
-				
+				self.getItemsLeft(tier)				
 				# end while
 
 		self.msg = "DONE"
@@ -168,7 +168,9 @@ class mainThread(threading.Thread):
 					self.initConn()
 				if self.cursor == None:
 					self.getCursor()
-				self.cursor.execute(query)				
+				self.logger.debug(query)
+				self.cursor.execute(query)
+				
 			except (psycopg2.DatabaseError, psycopg2.OperationalError) as error:
 				if retry_counter >= LIMIT_RETRIES:
 					self.logger.error("Reached max retries with query: " + str(error))
@@ -201,8 +203,8 @@ class mainThread(threading.Thread):
 		retry_counter = 0
 		while not quitEvent.is_set() and conn == None and retry_counter < LIMIT_RETRIES:
 			try:
-				self.logger.info("Trying to connect to database...")
-				conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword)								
+				self.logger.info("Trying to connect to database...")				
+				conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword,host=utils.pgHost)
 			except Exception as err:
 				retry_counter += 1
 				self.logger.error(str(err))
@@ -223,7 +225,10 @@ class mainThread(threading.Thread):
 		self.cursor = None
 	
 	def getCursor(self):
-		self.cursor = self.conn.cursor()
+		if self.conn == None:
+			self.logger.error("cursor does not exist, cannot fetch")
+		else:
+			self.cursor = self.conn.cursor()
 		
 	def initConn(self):
 		self.connect()
@@ -261,7 +266,7 @@ threads = list()
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
 	thread = mainThread(region, tiers=['CHALLENGER', 'GRANDMASTER', 'MASTER', 'DIAMOND','PLATINUM'],
-						batchsize=100, num_batches=100, daemon=True, log_level = log_level)
+						batchsize=100, num_batches=100, daemon=True, log_level=log_level)
 	threads.append(thread)
 
 for thread in threads:

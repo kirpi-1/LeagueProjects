@@ -73,7 +73,7 @@ class mainThread(threading.Thread):
 			self.logger.info(f"Starting {tier}")
 			
 			query = f"SELECT * FROM {self.table} WHERE region='{self.region}' "\
-					f"AND tier='{tier}' AND queueid is NULL ORDER BY gameid DESC LIMIT {self.batchsize}"		
+					f"AND tier='{tier}' AND queueid is NULL ORDER BY gamecreation DESC LIMIT {self.batchsize}"		
 			
 			self.getItemsLeft(tier)			
 			count = 0
