@@ -21,10 +21,13 @@ quitEvent.clear()
 parser = argparse.ArgumentParser()
 parser.add_argument('--log', default = "INFO", type=str)
 parser.add_argument('-q','--quiet', default=False,action="store_true") 
+parser.add_argument('-b','--batches',default=10, type=int, action="store")
 args = parser.parse_args()
 log_level = logging.INFO
 if args.log.lower() in utils.LOG_LEVELS:
 	log_level = utils.LOG_LEVELS[args.log.lower()]
+num_batches = args.batches
+
 
 def signal_handler(signal, frame):
 	global quitEvent
@@ -38,34 +41,17 @@ LIMIT_RETRIES = 5
 games_schema = utils.load_list('games_schema.txt')
 games_cols = [c[0] for c in games_schema]
 games_types = [c[1] for c in games_schema]
-class mainThread(threading.Thread):
-	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games', log_level = logging.INFO,
-				group=None, target=None, name=None, args=(), kwargs=None,daemon=True):
-		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)		
-		self.region = region
-		self.batchsize = batchsize
-		self.num_batches = num_batches
-		self.table = table
-		self.count = 0
-		self.index = 0		
-		self.database = database
-		self.itemsLeft = -1		
-		self.msg = "init"		
-		self.tiers = tiers		
-		self.logger = utils.set_up_logger(name=region,file=f"data/status_{region}.log", level=log_level)
-		self.countQuery = ""
-		self.conn = None
-		self.cursor = None
-	
-	def __del__(self):
-		self.logger.info("Ending")
-		self.close()		
-		
+class mainThread(utils.mainThreadProto):
+	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games', 
+				log_level = logging.INFO, group=None, target=None, name=None, args=(), kwargs=None,daemon=True):
+		super().__init__(region=region, tiers=tiers, database=database, batchsize=batchsize, num_batches=num_batches,
+						table=table, log_level=log_level, group=group, target=target, name=name,
+						kwargs=kwargs,daemon=daemon)	
 	def run(self):		
 		global quitEvent
 		self.msg = "cnct"
 		self.logger.info("Getting game data")
-		self.logger.debug("Debugging is ON")		
+		self.logger.debug("Debugging is ON")				
 		for tier in self.tiers:			
 			if self.conn == None:
 				self.initConn()
@@ -73,10 +59,11 @@ class mainThread(threading.Thread):
 			self.logger.info(f"Starting {tier}")
 			
 			query = f"SELECT * FROM {self.table} WHERE region='{self.region}' "\
-					f"AND tier='{tier}' AND queueid is NULL ORDER BY gamecreation DESC LIMIT {self.batchsize}"		
-			
-			self.getItemsLeft(tier)			
+					f"AND tier='{tier}' AND p1_summonerid is NULL ORDER BY gamecreation DESC LIMIT {self.batchsize}"		
+			self.countQuery = f"SELECT COUNT(*) FROM {self.table} WHERE region='{self.region}' AND tier='{tier}' AND p1_summonerid IS NULL"
+			self.getItemsLeft()
 			count = 0
+			self.logger.info(f"{self.itemsLeft} records left")
 			while self.itemsLeft > 0 and count < self.num_batches:				
 				self.msg = str(self.num_batches-count)
 				records = None
@@ -100,8 +87,7 @@ class mainThread(threading.Thread):
 					gameId = record[gameIdIdx]					
 					
 					req = f'https://{self.region}.api.riotgames.com/lol/match/v4/matches/{gameId}'					
-					resp = self.request(req)
-					time.sleep(1/rate)
+					resp = self.request(req)					
 					
 					if resp.ok:					
 						data = json.loads(resp.content)
@@ -134,106 +120,14 @@ class mainThread(threading.Thread):
 				self.initConn()
 				self.write_data(gameList)							
 				count += 1	
-				self.getItemsLeft(tier)
+				self.getItemsLeft()
+				self.logger.info(f"{self.itemsLeft} records left")
 				# end while
 		self.close()
-		self.msg = "DONE"
+		self.msg = "DONE"		
 		self.logger.info("Complete")
 	
-	def getItemsLeft(self, tier):
-		self.logger.debug("Getting count of items that are left")
-		countQuery = f"SELECT COUNT(*) FROM {self.table} WHERE region='{self.region}' AND tier='{tier}' AND queueid IS NULL"
-		self.execute(countQuery, False)
-		self.itemsLeft, = self.cursor.fetchone()	
 	
-	def request(self, req):
-		retry_counter=0
-		while retry_counter < LIMIT_RETRIES:
-			try:
-				resp = requests.get(req, headers=payload)
-			except Exception as e:
-				self.logger.error(f"{str(e)} when requesting: {req}")
-				if retry_counter < LIMIT_RETRIES:					
-					retry_counter+=1
-					self.logger.error(f"Retrying {retry_counter}...")
-					self.msg = f"eREQ{retry_counter}"
-					time.sleep(5)					
-				else:
-					self.logger.error(f"Exceeded max retries ({LIMIT_RETRIES})")
-					return None
-				
-			else:
-				return resp
-	
-	def execute(self, query, commit = True):
-		retry_counter = 0
-		while retry_counter < LIMIT_RETRIES:
-			try:
-				if self.conn == None:
-					self.initConn()
-				if self.cursor == None:
-					self.getCursor()
-				self.cursor.execute(query)				
-			except (psycopg2.DatabaseError, psycopg2.OperationalError) as error:
-				if retry_counter >= LIMIT_RETRIES:
-					self.logger.error("Reached max retries with query: " + str(error))
-					self.conn.rollback()					
-					self.msg = "ERR"
-					return True
-				else:
-					retry_counter += 1
-					self.logger.error(f"{str(error).strip()}, retrying {retry_counter}")
-					time.sleep(1)
-					self.reset()
-					
-			except (Exception, psycopg2.Error) as error:
-				self.logger.error(f"{str(error).strip()}")
-				self.conn.rollback()
-				self.msg = "ERR"
-				return True
-			else:
-				if commit:
-					self.conn.commit()
-				return False
-		
-				
-	def reset(self):
-		self.close()
-		self.connect()
-		self.getCursor()
-		
-	def connect(self):
-		conn = None
-		retry_counter = 0
-		while not quitEvent.is_set() and conn == None and retry_counter < LIMIT_RETRIES:
-			try:
-				self.logger.info("Trying to connect to database...")
-				conn = psycopg2.connect(dbname=self.database, user=utils.pgUsername, password=utils.pgPassword, host=utils.pgHost)								
-			except Exception as err:
-				retry_counter += 1
-				self.logger.error(str(err))
-				self.msg = "NC"
-				time.sleep(5)
-			else:
-				self.conn = conn
-				self.logger.info(f"Successfully connected to database, PID = 	{conn.info.backend_pid}")				
-				#self.msg = "SUCC"
-				
-	def close(self):
-		if self.cursor:
-			self.cursor.close()
-		if self.conn:
-			self.conn.close()
-		self.logger.info("PostgreSQL connection closed")
-		self.conn = None
-		self.cursor = None
-	
-	def getCursor(self):
-		self.cursor = self.conn.cursor()
-		
-	def initConn(self):
-		self.connect()
-		self.getCursor()
 	
 	def write_data(self, gameList):			
 		global games_cols
@@ -359,13 +253,14 @@ class mainThread(threading.Thread):
 				out[key] = None    
 		return out
 
-
+start_time = time.time()
+end_time = time.time()
 threads = list()
 #regions = ['na1']
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
 	thread = mainThread(region, tiers=['CHALLENGER', 'GRANDMASTER', 'MASTER', 'DIAMOND','PLATINUM'],
-						batchsize=100, num_batches=100, table='games', log_level=log_level)
+						batchsize=100, num_batches=num_batches, table='games', log_level=log_level)
 	threads.append(thread)
 
 for thread in threads:
@@ -396,6 +291,8 @@ try:
 			print("\r" + " "*120, end="")
 			print(msg,end="")
 		if numRunningThreads==0:
+			end_time = time.time()
+			print(f"\nfinished in {end_time-start_time} seconds")
 			break
 		time.sleep(1)
 except KeyboardInterrupt:

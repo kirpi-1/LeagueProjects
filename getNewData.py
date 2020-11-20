@@ -64,10 +64,11 @@ class mainThread(utils.mainThreadProto):
 			# get list of summoners who have played during season 10
 			summonerids = self.getSummoners(version=10)				
 			for idx, summonerId in enumerate(summonerids):
-				self.logger.info(f"working on summoner {summonerId}")
+				self.logger.info(f"working on {idx} of {len(summonerids)}, summoner {summonerId}")
 				self.msg = len(summonerids)-idx
-				# get the info on hand for this summonerid
+				# get the info on hand for this summonerid				
 				query = f"SELECT * FROM summoners WHERE summonerid='{summonerId}' and region='{self.region}'"
+				#AND (last_accessed is NULL or EXTRACT(EPOCH FROM last_accessed) > EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - 604800)"
 				err = self.execute(query)
 				if err:
 					continue
@@ -78,6 +79,7 @@ class mainThread(utils.mainThreadProto):
 				last_accessedIdx = cols.index('last_accessed')
 				# if missing account id or puuid, we should fetch it
 				if result[puuidIdx]==None or result[accountidIdx]==None:
+					self.logger.info("missing puuid or accountid, updating...")
 					self.updateSummonerInfo(summonerId)
 					query = f"SELECT * FROM summoners WHERE summonerid='{summonerId}' and region='{self.region}'"
 					err = self.execute(query)
@@ -88,17 +90,20 @@ class mainThread(utils.mainThreadProto):
 				s = dict()
 				s['summonerid'] = summonerId
 				s['accountid'] = result[accountidIdx]
-				s['last_accessed'] = result[last_accessedIdx]				
-				# get the matchlist for this summoner
-				df = self.getMatchList(s)
-				# write it to the database
-				if len(df)>0:
-					df.to_sql("games", self.engine, index=False, if_exists='append', method=utils.writeGameInit)
-					
-				now = time.time()
-				query = f"UPDATE summoners SET last_accessed=to_timestamp({now}) WHERE summonerid='{summonerId}' and region='{self.region}'"
-				self.execute(query, True)
+				s['last_accessed'] = result[last_accessedIdx]
+				# get the matchlist for this summoner if the last time i looked at them was more than a week ago
+				if s['last_accessed'] is None or time.time() - s['last_accessed'].timestamp() > 7*24*60*60: # 1 week					
+					df = self.getMatchList(s)
+					# write it to the database
+					if len(df)>0:
+						df.to_sql("games", self.engine, index=False, if_exists='append', method=utils.writeGameInit)
+						
+					now = time.time()
+					query = f"UPDATE summoners SET last_accessed=to_timestamp({now}) WHERE summonerid='{summonerId}' and region='{self.region}'"
+					self.execute(query, True)
 				
+				elif time.time() - s['last_accessed'].timestamp() < 7*24*60*60:
+					self.logger.info(f"Last looked at summonerid({s['summonerid']}) less than a week ago ({s['last_accessed']})")
 			
 			
 		
@@ -154,7 +159,11 @@ class mainThread(utils.mainThreadProto):
 
 	def updateSummonerInfo(self, summonerId):
 		self.logger.debug(f"updating summoner {summonerId}")
-		r = dict()									
+		r = dict()								
+		r['puuid'] = None					
+		r['summonerid'] = summonerId
+		r['accountid'] = None
+		r['summonername'] = None
 		req = f'https://{self.region}.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}'					
 		resp = self.request(req)		
 		if resp.ok:					
@@ -178,7 +187,7 @@ class mainThread(utils.mainThreadProto):
 	# summonerInfo is a dict with at least the following keys:	
 	# 		summonerid, accountid, last_accessed
 	# returns a matchlist for this summoner as a pandas.DataFrame
-		self.logger.info(f"Getting matchlist for summonerId={summonerInfo['summonerid']}, accountId={summonerInfo['accountid']}")
+		self.logger.debug(f"Getting matchlist for summonerId={summonerInfo['summonerid']}, accountId={summonerInfo['accountid']}")
 		# default to jan 1st 2020 to get only this year's games
 		jan01 = jan1=time.struct_time((2020,1,1,0,0,0,0,0,0))
 		jan01_timestamp = time.mktime(jan01)

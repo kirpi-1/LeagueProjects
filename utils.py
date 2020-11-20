@@ -97,11 +97,7 @@ class mainThreadProto(threading.Thread):
 		self.countQuery = ""
 		self.conn = None
 		self.cursor = None
-		self.engine = None
-	
-	def __del__(self):
-		self.logger.info("Ending")
-		self.close()		
+		self.engine = None		
 		
 	def getColumns(self):
 		return [d[0] for d in self.cursor.description]		
@@ -115,7 +111,7 @@ class mainThreadProto(threading.Thread):
 			self.logger.warning(f"Response code {resp.status_code}")			
 			return 404			
 		elif resp.status_code == 400:
-			self.logger.error(f"Response code {resp.status_code}, bad request for '{req}'")
+			self.logger.error(f"Response code {resp.status_code}'")
 			accountId = '400'
 			return 400
 		elif resp.status_code == 429:
@@ -126,7 +122,7 @@ class mainThreadProto(threading.Thread):
 		
 		return None
 		
-	def getItemsLeft(self, tier):
+	def getItemsLeft(self):
 		self.logger.debug("Getting count of items that are left")		
 		self.execute(self.countQuery, False)
 		self.itemsLeft, = self.cursor.fetchone()	
@@ -144,14 +140,13 @@ class mainThreadProto(threading.Thread):
 					retry_counter+=1
 					self.logger.error(f"Retrying {retry_counter}...")
 					self.msg = f"eREQ{retry_counter}"
-					time.sleep(5)										
+					time.sleep(1)										
 				else:
 					self.logger.error(f"Exceeded max retries ({retry_limit})")
 					return None
 				
 			else:
-				self.msg = old_msg
-				
+				self.msg = old_msg				
 				return resp
 	
 	def execute(self, query, commit = True, retry_limit = LIMIT_RETRIES):
@@ -205,7 +200,7 @@ class mainThreadProto(threading.Thread):
 				retry_counter += 1
 				self.logger.error(str(err))
 				self.msg = "NC"
-				time.sleep(5)
+				time.sleep(1)
 			else:
 				self.conn = conn
 				self.engine = engine
