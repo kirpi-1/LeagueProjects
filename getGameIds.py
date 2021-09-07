@@ -270,8 +270,7 @@ class mainThread(threading.Thread):
 threads = list()
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
-	thread = mainThread(region, tiers=tiers,
-						batchsize=args.batchsize, num_batches=args.numbatches, log_level=log_level)
+	thread = mainThread(region, tiers=tiers, batchsize=args.batchsize, num_batches=args.numbatches, log_level=log_level)
 	threads.append(thread)
 
 for thread in threads:
