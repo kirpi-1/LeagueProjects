@@ -37,6 +37,27 @@ log_level = logging.INFO
 if args.log.lower() in utils.LOG_LEVELS:
 	log_level = utils.LOG_LEVELS[args.log.lower()]
 
+tiers = list()
+if 'c' in args.tiers.lower():
+	tiers.append('CHALLENGER')
+if 'g' in args.tiers.lower():
+	tiers.append('GRANDMASTER')
+if 'm' in args.tiers.lower():
+	tiers.append('MASTER')
+if 'd' in args.tiers.lower():
+	tiers.append('DIAMOND')
+if 'p' in args.tiers.lower():
+	tiers.append('PLATINUM')
+if 'o' in args.tiers.lower():
+	tiers.append('GOLD')
+if 's' in args.tiers.lower():
+	tiers.append('SILVER')
+if 'b' in args.tiers.lower():
+	tiers.append('BRONZE')
+if 'i' in args.tiers.lower():
+	tiers.append('IRON')
+
+
 print("log level:",log_level)
 class mainThread(threading.Thread):
 	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 100, group=None, target=None, name=None, args=(), kwargs=None,daemon=None,log_level=logging.INFO):
