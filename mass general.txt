@@ -1,0 +1,84 @@
+mass general hospital
+
+epilepsy specialist
+run eeg service in hospital
+
+~30 in lab
+6 postdocs
+	automating process of interpreting EEG
+	building prediction algorithms (for triage)
+research coordinators (seeing patients for studies)
+
+
+engineering team
+building/maintaining pipelines
+creating data repository/data lake
+
+matt
+junior - db guy project manager
+ganahar - pyspark, hive, distributed computing person
+tzewei fan - EEG expert, 
+alyssa yeh - data science, Electronic health record
+ayushi jain, bioinformaticist
+aditya gupta - engineer  
+
+lab meetings 2/week
+	technical - review papers
+	research - presenting results
+daily standup meeting for engineering SCRUM methodology
+Sprint planning every two weeks
+
+
+major projects
+	- data sharing portal (external sharing)
+		- consortium of data of critical care neurology (EEG of patients)
+		- human sleep project (collect 100k polysomnograms + EHR data)
+	- landmark project #4 (internal sharing)
+		- sharing data within hospital system
+		- capture telemetry
+		- be able to find patients with certain properties
+	- Deploying ML/AI algorithms into clinical workforce
+		- seizure detection algorithm
+		- non-critical care use
+
+
+
+====================================
+
+
+python for preprocessing
+using sql server
+linux server
+once data is de-identified
+
+
+=====================================
+
+Junior is with Mass General Bringham
+
+Building data lake of medical device data
+EEG, ECG, bedisde monitors, telemetry
+Goal - ETL, build data lake, make available to community to query and access
+
+Other projects related to machine learning, more deeply neuroscience side.
+
+Role mostly ETL part
+
+Junior leads engineering team. has background in CS
+
+hadoop, SQL, NoSQL, Python
+
+get bedside telemetry (HO7 messages), have to dedcde how to accept, transform, process the data.
+
+
+Brandon is MGH side, director of CDAC
+Two teams, officially will merge at some point
+
+Now is mostly ETL, at some point in the future may do ML/AI
+
+engineering team reports to Junior, CDAC,
+
+every 2 weeks do sprint planning, SCRUM, Stand-up 11am EST
+
+
+

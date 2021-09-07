@@ -25,7 +25,7 @@ pgUsername = ""
 pgPassword = ""
 
 jan12020 = 1577865600 #epoch time of jan 1st, 2020
-
+DEFAULT_START_DATE = time.struct_time((2020,1,1,0,0,0,0,0,0))
 
 LOG_LEVELS = {
     'critical': logging.CRITICAL,
@@ -78,6 +78,24 @@ def set_up_logger(name="default", file="data/default.log", logFormat = '%(asctim
 	logger.addHandler(handler)
 	return logger
 	
+	
+	
+def parse_date(start_date, end_date):
+	# takes in a YYYY-MM-DD string and returns a time.struct_time
+	out = [None, None]
+	for idx, d in enumerate([start_date, end_date]):
+		if d!="":
+			t = d.split("-")
+			if len(t) == 3:
+				try:
+					year = int(t[0])
+					month = int(t[1])
+					day = int(t[2])										
+					out[idx] = (year, month, day, 0, 0, 0, 0, 0, 0)
+				except ValueError:
+					print(f"error processing {d}. Needs to be in YYYY-MM-DD format")		
+	return out[0], out[1]	
+
 LIMIT_RETRIES = 5	
 class mainThreadProto(threading.Thread):
 	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games', log_level = logging.INFO,
@@ -111,8 +129,7 @@ class mainThreadProto(threading.Thread):
 			self.logger.warning(f"Response code {resp.status_code}")			
 			return 404			
 		elif resp.status_code == 400:
-			self.logger.error(f"Response code {resp.status_code}'")
-			accountId = '400'
+			self.logger.error(f"Response code {resp.status_code}")			
 			return 400
 		elif resp.status_code == 429:
 			time.sleep(1/rate)
@@ -123,9 +140,10 @@ class mainThreadProto(threading.Thread):
 		return None
 		
 	def getItemsLeft(self):
-		self.logger.debug("Getting count of items that are left")		
+		self.logger.debug("Getting count of items that are left using: " + self.countQuery)		
 		self.execute(self.countQuery, False)
 		self.itemsLeft, = self.cursor.fetchone()	
+		self.logger.info(f"{self.itemsLeft} items left")
 	
 	def request(self, req, retry_limit = LIMIT_RETRIES):
 		retry_counter=0
@@ -267,4 +285,29 @@ def writeGameInit(pd_table, conn, keys, data_iter):
             tier = data[keys.index('tier')]
             vals.append(f"({gameid}, {gamecreation}, {queueid}, '{platformid}', '{region}', '{tier}')")
         query += ", ".join(vals) +" ON CONFLICT ON CONSTRAINT games_gameid_key DO NOTHING;"        
+        cur.execute(query)
+
+def writePuuids(pd_table, conn, keys, data_iter):
+    """
+    Execute SQL statement inserting data
+
+    Parameters
+    ----------
+    table : pandas.io.sql.SQLTable
+    conn : sqlalchemy.engine.Engine or sqlalchemy.engine.Connection
+    keys : list of str
+        Column names
+    data_iter : Iterable that iterates the values to be inserted
+    """        
+    # gets a DBAPI connection that can provide a cursor
+    dbapi_conn = conn.connection
+    with dbapi_conn.cursor() as cur:        
+        query = f"INSERT INTO {pd_table.name} (puuid, accountid, region) VALUES "
+        vals = list()
+        for data in data_iter:
+            puuid = data[keys.index('puuid')]
+            accountid = data[keys.index('accountid')]
+            region = data[keys.index('region')]
+            vals.append(f"('{puuid}', '{accountid}', '{region}')")
+        query += ", ".join(vals) +" ON CONFLICT ON CONSTRAINT accountid UPDATE SET puuid=EXCLUDED.puuid;"        
         cur.execute(query)

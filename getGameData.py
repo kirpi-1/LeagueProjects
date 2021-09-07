@@ -22,12 +22,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--log', default = "INFO", type=str)
 parser.add_argument('-q','--quiet', default=False,action="store_true") 
 parser.add_argument('-b','--batches',default=10, type=int, action="store")
+parser.add_argument('-s','--start-date', default="2020-01-01",type=str, help="starting date in YYYY-MM-DD format")
+parser.add_argument('-e','--end-date', default="2021-01-01", type=str, help="ending date in YYYY-MM-DD format")
+parser.add_argument('-v','--game-version',default=10,type=int,help="season number to look at for eligible summoners")
+
 args = parser.parse_args()
 log_level = logging.INFO
 if args.log.lower() in utils.LOG_LEVELS:
 	log_level = utils.LOG_LEVELS[args.log.lower()]
 num_batches = args.batches
-
+start_date, end_date = utils.parse_date(args.start_date, args.end_date)
 
 def signal_handler(signal, frame):
 	global quitEvent
@@ -43,15 +47,37 @@ games_cols = [c[0] for c in games_schema]
 games_types = [c[1] for c in games_schema]
 class mainThread(utils.mainThreadProto):
 	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games', 
-				log_level = logging.INFO, group=None, target=None, name=None, args=(), kwargs=None,daemon=True):
+				start_date = None, end_date = None,	log_level = logging.INFO, group=None, target=None, name=None, 
+				args=(), kwargs=None,daemon=True):
 		super().__init__(region=region, tiers=tiers, database=database, batchsize=batchsize, num_batches=num_batches,
 						table=table, log_level=log_level, group=group, target=target, name=name,
-						kwargs=kwargs,daemon=daemon)	
+						kwargs=kwargs,daemon=daemon)
+		self.start_date = start_date
+		self.end_date = end_date
+		
+		
+	def getStartEndTimestamps(self):
+		start_timestamp = time.mktime(utils.DEFAULT_START_DATE)
+		end_timestamp = time.time()
+		
+		if self.start_date is not None:	
+			start_timestamp = time.mktime(self.start_date)
+			
+		# if an end_date is set, then use that if it is after the start date
+		if self.end_date is not None:			
+			end_timestamp = time.mktime(self.end_date)
+			if end_timestamp < start_timestamp:
+				end_timestamp = time.time()
+		return start_timestamp, end_timestamp
+	
 	def run(self):		
 		global quitEvent
 		self.msg = "cnct"
 		self.logger.info("Getting game data")
-		self.logger.debug("Debugging is ON")				
+		self.logger.debug("Debugging is ON")		
+		self.logger.debug(f"start date: {self.start_date}, end date: {self.end_date}")
+		start_timestamp, end_timestamp = self.getStartEndTimestamps()
+		
 		for tier in self.tiers:			
 			if self.conn == None:
 				self.initConn()
@@ -59,8 +85,11 @@ class mainThread(utils.mainThreadProto):
 			self.logger.info(f"Starting {tier}")
 			
 			query = f"SELECT * FROM {self.table} WHERE region='{self.region}' "\
-					f"AND tier='{tier}' AND p1_summonerid is NULL ORDER BY gamecreation DESC LIMIT {self.batchsize}"		
-			self.countQuery = f"SELECT COUNT(*) FROM {self.table} WHERE region='{self.region}' AND tier='{tier}' AND p1_summonerid IS NULL"
+					f"AND tier='{tier}' AND gameversion is NULL and queueid!=404 "\
+					f"AND gamecreation < {end_timestamp*1000} AND gamecreation > {start_timestamp*1000} "\
+					f"ORDER BY gamecreation DESC LIMIT {self.batchsize}"	
+			self.logger.debug("Using query: " + query)
+			self.countQuery = f"SELECT COUNT(*) FROM {self.table} WHERE region='{self.region}' AND tier='{tier}' AND gameversion IS NULL AND gamecreation >{start_timestamp*1000} and gamecreation < {end_timestamp*1000} and queueid != 404"
 			self.getItemsLeft()
 			count = 0
 			self.logger.info(f"{self.itemsLeft} records left")
@@ -260,7 +289,8 @@ threads = list()
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
 	thread = mainThread(region, tiers=['CHALLENGER', 'GRANDMASTER', 'MASTER', 'DIAMOND','PLATINUM'],
-						batchsize=100, num_batches=num_batches, table='games', log_level=log_level)
+						batchsize=100, num_batches=num_batches, table='games', log_level=log_level,
+						start_date=start_date, end_date=end_date)
 	threads.append(thread)
 
 for thread in threads:

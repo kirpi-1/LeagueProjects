@@ -15,26 +15,51 @@ import logging
 
 # given a database that is populated with games, get new data based on the summoners who have been playing
 
+
+
 #sanity program ender
 quitEvent = threading.Event()
 quitEvent.clear()
-#sanity program ender
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--log', default = "INFO", type=str)
-parser.add_argument('-q','--quiet', default=False,action="store_true")
-
-args = parser.parse_args()
-log_level = logging.INFO
-if args.log.lower() in utils.LOG_LEVELS:
-	log_level = utils.LOG_LEVELS[args.log.lower()]
-
 def signal_handler(signal, frame):
 	global quitEvent
 	print("\nprogram exiting gracefully")
 	quitEvent.set()
 	sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
+
+
+# Parse arguments
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--log', default = "INFO", type=str)
+parser.add_argument('-q','--quiet', default=False,action="store_true")
+parser.add_argument('-s','--start-date', default="2020-01-01",type=str, help="starting date in YYYY-MM-DD format")
+parser.add_argument('-e','--end-date', default="", type=str, help="ending date in YYYY-MM-DD format")
+parser.add_argument('-v','--game-version',default=10,type=int,help="season number to look at for eligible summoners")
+parser.add_argument('-t','--tiers', default="CGMDP", type=str,help="which tiers to look at, [C]hallenger, [G]randmaster, [M]aster, [D]iamond, [P]latinum")
+
+
+args = parser.parse_args()
+log_level = logging.INFO
+if args.log.lower() in utils.LOG_LEVELS:
+	log_level = utils.LOG_LEVELS[args.log.lower()]
+
+
+start_date, end_date = utils.parse_date(args.start_date, args.end_date)
+
+tiers = list()
+if 'c' in args.tiers.lower():
+	tiers.append('CHALLENGER')
+if 'g' in args.tiers.lower():
+	tiers.append('GRANDMASTER')
+if 'm' in args.tiers.lower():
+	tiers.append('MASTER')
+if 'd' in args.tiers.lower():
+	tiers.append('DIAMOND')
+if 'p' in args.tiers.lower():
+	tiers.append('PLATINUM')
+	
+
 
 max_num_of_summoners = 1000
 LIMIT_RETRIES = 5
@@ -44,10 +69,14 @@ games_types = [c[1] for c in games_schema]
 
 class mainThread(utils.mainThreadProto):
 	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games', 
+				start_date = None, end_date = None, version = 10,
 				log_level = logging.INFO, group=None, target=None, name=None, args=(), kwargs=None,daemon=True):
 		super().__init__(region=region, tiers=tiers, database=database, batchsize=batchsize, num_batches=num_batches,
 						table=table, log_level=log_level, group=group, target=target, name=name,
 						kwargs=kwargs,daemon=daemon)
+		self.start_date = start_date
+		self.end_date = end_date
+		self.version = version
 						
 	def run(self):		
 		global quitEvent
@@ -62,12 +91,14 @@ class mainThread(utils.mainThreadProto):
 			self.logger.info(f"Starting {tier}")
 			
 			# get list of summoners who have played during season 10
-			summonerids = self.getSummoners(version=10)				
+			summonerids = self.getSummoners()				
 			for idx, summonerId in enumerate(summonerids):
 				self.logger.info(f"working on {idx} of {len(summonerids)}, summoner {summonerId}")
 				self.msg = len(summonerids)-idx
 				# get the info on hand for this summonerid				
-				query = f"SELECT * FROM summoners WHERE summonerid='{summonerId}' and region='{self.region}'"
+				query = f"SELECT * FROM summoners WHERE summonerid='{summonerId}' and region='{self.region}'"\
+				
+				# this gets checked below
 				#AND (last_accessed is NULL or EXTRACT(EPOCH FROM last_accessed) > EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - 604800)"
 				err = self.execute(query)
 				if err:
@@ -111,7 +142,8 @@ class mainThread(utils.mainThreadProto):
 		self.msg = "DONE"
 		self.logger.info("Complete")
 	
-	def getSummoners(self, version=10):
+	def getSummoners(self):
+		version = self.version
 		self.logger.info(f"Getting summoners who participated in games with version={version}")
 		# get list of games where game version is 10.*			
 		query = f"SELECT p1_summonerid, p2_summonerid, p3_summonerid, p4_summonerid, p5_summonerid, p6_summonerid,"\
@@ -188,17 +220,30 @@ class mainThread(utils.mainThreadProto):
 	# 		summonerid, accountid, last_accessed
 	# returns a matchlist for this summoner as a pandas.DataFrame
 		self.logger.debug(f"Getting matchlist for summonerId={summonerInfo['summonerid']}, accountId={summonerInfo['accountid']}")
-		# default to jan 1st 2020 to get only this year's games
-		jan01 = jan1=time.struct_time((2020,1,1,0,0,0,0,0,0))
-		jan01_timestamp = time.mktime(jan01)
-		last_accessed = jan01_timestamp
-		# but if we looked at this summoner before, then only get games up to the last time we accessed
-		if summonerInfo['last_accessed'] != None:
-			last_accessed = summonerInfo['last_accessed'].timestamp()		
+		# start date and end date
+		start_timestamp = None
+		end_timestamp = time.time()
+		# if don't have a set start date
+		if self.start_date is None:					
+			# Use the default start date only if this summoner hasn't been accessed before
+			if summonerInfo['last_accessed'] is None:
+				start_timestamp = time.mktime(utils.DEFAULT_START_DATE)			
+			else: # otherwise only get games after the last time we accessed
+				start_timestamp = summonerInfo['last_accessed'].timestamp()		
+			
+		else: # use the set start date
+			start_timestamp = time.mktime(self.start_date)
+		
+		# if an end_date is set, then use that if it is after the start date
+		if self.end_date is not None:			
+			end_timestamp = time.mktime(self.end_date)
+			if end_timestamp < start_timestamp:
+				end_timestamp = time.time()
+		
 		df = pd.DataFrame()
 		beginIndex = 0
 		while True:
-			resp, data = self.requestMatchlist(summonerInfo['accountid'], beginIndex=beginIndex)
+			resp, data = self.requestMatchList(summonerInfo['accountid'], beginIndex=beginIndex)
 			if not resp.ok:			
 				self.logger.error(f"Error when requesting matches for summonerid='{summonerInfo['summonerid']}'")
 				break;
@@ -206,24 +251,31 @@ class mainThread(utils.mainThreadProto):
 				self.logger.debug(f"reached end of matches for {summonerInfo['summonerid']}")
 				break;
 			df = df.append(data['matches'], ignore_index=True)
-			earliestTimestamp = df.iloc[-1]['timestamp']
-			if earliestTimestamp/1000 > last_accessed:
+			
+			#timestamp from Riot is in milliseconds, so need to divide it by 1000 for seconds
+			earliest_timestamp = df.iloc[-1]['timestamp']/1000
+			# if the earliest timestamp from a game is greater than our starting timestamp,
+			# increment beginIndex so we can get even earlier timestamps
+			if earliest_timestamp > start_timestamp: 
 				beginIndex+=100
-			else:
+			# otherwise, if we find a game that is earlier than our start date, then we can stop requesting matches
+			else:			
 				break;
 		
 		# set all the column names to lowercase, then extract only the relevant columns
-		# then select only the games that happened after the timestamp threshold
+		# then select only the games that happened after the starting timestamp and before the end timestamp
 		if len(df)>0:
 			df.columns= df.columns.str.strip().str.lower()
 			df = df[['gameid','queue','timestamp','platformid']]
-			df = df[df['timestamp']/1000>=last_accessed]
+			df = df[df['timestamp']/1000>=start_timestamp]
+			df = df[df['timestamp']/1000<=end_timestamp]
 			df['tier'] = self.current_tier
 			df['region'] = self.region
 		self.logger.debug(f"got {len(df)} matches")
 		return df
 	
-	def requestMatchlist(self, accountId, beginIndex = None, endIndex = None):
+	def requestMatchList(self, accountId, beginIndex = None, endIndex = None):
+		# Helper function for getMatchList to perform the actual request
 		self.logger.debug(f"Requesting matchlist for accountId={accountId}, beginIndex={beginIndex}")
 		extras = list()
 		extras.append("queue=420")
@@ -300,83 +352,16 @@ class mainThread(utils.mainThreadProto):
 			else:
 				break
 				
-		self.logger.info(f"Updating data for {updateCount} of {len(gameList)}  games")		
+		self.logger.info(f"Updating data for {updateCount} of {len(gameList)}  games")	
 		
-	def getGameInfo(self, data):
-		blue = 0
-		red = 1
-		redTeamId = 200
-		blueTeamId = 100
-		out = dict()
-		if data['teams'][0]['teamId']==redTeamId: # blue team is 100, red team is 200
-			blue = 1
-			red = 0
-		keys = ['gameId', 'platformId', 'gameCreation', 'gameDuration', 'queueId', 'mapId', 'seasonId', 'gameVersion', 'gameMode',
-				'gameType']
-		for key in keys:
-			out[key] = data[key]
-		keys = ['win', 'firstBlood', 'firstTower', 'firstInhibitor','firstBaron','firstDragon','firstRiftHerald']
-		for key in keys:
-			out[key] = 0
-			if key in data['teams'][blue] and data['teams'][blue][key] != False and data['teams'][blue][key] != 'Fail':
-				out[key] = 100
-			elif key in data['teams'][red] and data['teams'][red][key] != False and data['teams'][red][key] != 'Fail':
-				out[key] = 200
-		
-		teams=['blue','red']
-		keys = ['towerKills','inhibitorKills','baronKills','dragonKills','riftHeraldKills']		
-		for idx,team in enumerate(teams):
-			for key in keys:
-				if key in data['teams'][idx]:
-					out[f"{team}_{key}"] = data['teams'][idx][key]
-
-		for idx, participant in enumerate(data['participants']):
-			p = self.reduce_participant_fields(participant)
-			if 'player' in data['participantIdentities'][idx].keys() and 'summonerId' in data['participantIdentities'][idx]['player'].keys():
-				out[f"p{participant['participantId']}_summonerId"] = data['participantIdentities'][idx]['player']['summonerId']
-			else:
-				out[f"p{participant['participantId']}_summonerId"] = '0'        
-			for key in p.keys():            
-				out[f"p{participant['participantId']}_{key}"] = p[key]        
-		return out
-	
-	def reduce_participant_fields(self, participant):
-		keys = ['championId','spell1Id','spell2Id','teamId']
-		out = dict()
-		for key in keys:
-			if key in participant.keys():
-				out[key] = participant[key]
-			else:
-				out[key] = None
-		# from stats:
-		keys = ['item0','item1','item2','item3','item4','item5','kills','deaths','assists',
-		'totalDamageDealtToChampions','magicDamageDealtToChampions', 'physicalDamageDealtToChampions', 'trueDamageDealtToChampions',
-		'totalHeal','damageSelfMitigated','damageDealtToObjectives','damageDealtToTurrets',
-		'visionScore','timeCCingOthers','totalDamageTaken','magicalDamageTaken','physicalDamageTaken','trueDamageTaken',
-		'goldEarned','goldSpent','turretKills','inhibitorKills','totalMinionsKilled',
-		'champLevel','visionWardsBoughtInGame','sightWardsBoughtInGame','wardsPlaced','wardsKilled',
-		'perk0','perk1','perk2','perk3','perk4','perk5','perkPrimaryStyle','perkSubStyle']
-		for key in keys:
-			if key in participant['stats'].keys():
-				out[key] = participant['stats'][key]
-			else:
-				out[key] = None
-		# from timeline
-		keys=['role','lane']
-		for key in keys:
-			if key in participant['timeline'].keys():
-				out[key] = participant['timeline'][key]    
-			else:
-				out[key] = None    
-		return out
-
 
 threads = list()
 #regions = ['na1']
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
-	thread = mainThread(region, tiers=['CHALLENGER', 'GRANDMASTER', 'MASTER', 'DIAMOND','PLATINUM'],
-						batchsize=100, num_batches=100, table='games', log_level=log_level)
+	thread = mainThread(region, 
+		tiers=tiers,batchsize=100, num_batches=100, table='games', log_level=log_level,
+		version=args.game_version, start_date=start_date, end_date=end_date)
 	threads.append(thread)
 
 for thread in threads:

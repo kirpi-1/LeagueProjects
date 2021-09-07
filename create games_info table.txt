@@ -1,0 +1,14 @@
+create table game_info(
+gameid bigint, 
+puuid text, 
+CONSTRAINT fk_gameid FOREIGN KEY(gameid) REFERENCES games(gameid),
+CONSTRAINT fk_puuid FOREIGN KEY(puuid) REFERENCES summoners(puuid),
+team text,int, puuid text, CONSTRAINT fk_gameid FOREIGN KEY(gameid) REFERENCES games(gameid),
+item0 real, item1 real, item2 real, item3 real, item4 real, item5 real,
+kills real, deaths real, assists real, totaldamagedealttochampions real, magicdamagedealttochampions real,
+physicaldamagedealttochampions real, truedamagedealttochampions real, totalheal real, damageselfmitigated real,
+damagedealttoobjectives real, damagedealttoturrets real, visionscore real, timeccingothers real, totaldamagetaken real,
+magicdamagetaken real, physicaldamagetaken real, truedamagetaken real, 
+goldearned real, goldspent real, turretkills real, inhibitorkills real, totalminionskilled real, champlevel real, 
+visionwardsboughtingame real, sightwardsboughtingame real, wardsplaced real, wardskilled real, perk0 real,
+perk1 real, perk2 real, perk3 real, perk4 real, perk5 real, perkprimarystyle real, perksubstyle real, role text, lane text);
