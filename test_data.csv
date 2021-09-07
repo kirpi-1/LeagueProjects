@@ -1,0 +1,869 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,Q_RecaptchaScore,Q1,Q2,Q3,Q4,Q5,Q7,Q8,Q10,Q11,Q12,1_Q13,2_Q13,3_Q13,4_Q13,5_Q13,6_Q13,7_Q13,8_Q13,9_Q13,10_Q13,11_Q13,12_Q13,13_Q13,14_Q13,15_Q13,16_Q13,17_Q13,18_Q13,19_Q13,20_Q13,21_Q13,22_Q13,23_Q13,24_Q13,25_Q13,26_Q13,27_Q13,28_Q13,29_Q13,30_Q13,31_Q13,32_Q13,33_Q13,34_Q13,35_Q13,36_Q13,37_Q13,38_Q13,39_Q13,40_Q13,41_Q13,42_Q13,43_Q13,44_Q13,45_Q13,46_Q13,47_Q13,48_Q13,49_Q13,50_Q13,51_Q13,52_Q13,53_Q13,54_Q13,55_Q13,56_Q13,57_Q13,58_Q13,59_Q13,60_Q13,61_Q13,62_Q13,63_Q13,64_Q13,65_Q13,66_Q13,67_Q13,68_Q13,69_Q13,70_Q13,71_Q13,72_Q13,73_Q13,74_Q13,75_Q13,76_Q13,77_Q13,78_Q13,79_Q13,80_Q13,81_Q13,82_Q13,83_Q13,84_Q13,85_Q13,86_Q13,87_Q13,88_Q13,89_Q13,90_Q13,91_Q13,92_Q13,93_Q13,94_Q13,95_Q13,96_Q13,97_Q13,98_Q13,99_Q13,100_Q13,101_Q13,102_Q13,103_Q13,104_Q13,105_Q13,106_Q13,107_Q13,108_Q13,109_Q13,110_Q13,111_Q13,112_Q13,113_Q13,114_Q13,115_Q13,116_Q13,117_Q13,118_Q13,119_Q13,120_Q13,121_Q13,122_Q13,123_Q13,124_Q13,125_Q13,126_Q13,127_Q13,128_Q13,129_Q13,130_Q13,131_Q13,132_Q13,133_Q13,134_Q13,135_Q13,136_Q13,137_Q13,138_Q13,139_Q13,140_Q13,141_Q13,142_Q13,143_Q13,144_Q13,145_Q13,146_Q13,147_Q13,148_Q13,149_Q13,150_Q13,151_Q13,152_Q13,153_Q13,154_Q13,155_Q13,156_Q13,157_Q13,158_Q13,159_Q13,160_Q13,161_Q13,162_Q13,163_Q13,164_Q13,165_Q13,166_Q13,167_Q13,168_Q13,169_Q13,170_Q13,171_Q13,172_Q13,173_Q13,174_Q13,175_Q13,176_Q13,177_Q13,178_Q13,179_Q13,180_Q13,181_Q13,182_Q13,183_Q13,184_Q13,185_Q13,186_Q13,187_Q13,188_Q13,189_Q13,190_Q13,191_Q13,192_Q13,193_Q13,Q14_1,Q14_2,Q14_3,Q14_4,Q14_5,Q14_6,Q14_7,Q14_8,Q14_9,Q14_10,Q14_11,Q14_12,Q14_13,Q14_14,Q14_15,Q14_16,Q14_17,Q14_18,Q14_19,Q14_20,Q15_1,Q15_2,Q15_3,Q15_4,Q15_5,Q15_6,Q15_7,Q15_8,Q15_9,Q15_10,Q15_11,Q15_12,Q15_13,Q15_14,Q15_15,Q15_16,Q15_17,Q15_18,Q15_19,Q15_20,Q16,1_Q17,2_Q17,3_Q17,4_Q17,5_Q17,6_Q17,7_Q17,8_Q17,9_Q17,10_Q17,11_Q17,12_Q17,13_Q17,14_Q17,15_Q17,16_Q17,17_Q17,18_Q17,19_Q17,20_Q17,21_Q17,22_Q17,23_Q17,24_Q17,25_Q17,26_Q17,27_Q17,28_Q17,29_Q17,30_Q17,31_Q17,32_Q17,33_Q17,34_Q17,35_Q17,36_Q17,37_Q17,38_Q17,39_Q17,40_Q17,41_Q17,42_Q17,43_Q17,44_Q17,45_Q17,46_Q17,47_Q17,48_Q17,49_Q17,50_Q17,51_Q17,52_Q17,53_Q17,54_Q17,55_Q17,56_Q17,57_Q17,58_Q17,59_Q17,60_Q17,61_Q17,62_Q17,63_Q17,64_Q17,65_Q17,66_Q17,67_Q17,68_Q17,69_Q17,70_Q17,71_Q17,72_Q17,73_Q17,74_Q17,75_Q17,76_Q17,77_Q17,78_Q17,79_Q17,80_Q17,81_Q17,82_Q17,83_Q17,84_Q17,85_Q17,86_Q17,87_Q17,88_Q17,89_Q17,90_Q17,91_Q17,92_Q17,93_Q17,94_Q17,95_Q17,96_Q17,97_Q17,98_Q17,99_Q17,100_Q17,101_Q17,102_Q17,103_Q17,104_Q17,105_Q17,106_Q17,107_Q17,108_Q17,109_Q17,110_Q17,111_Q17,112_Q17,113_Q17,114_Q17,115_Q17,116_Q17,117_Q17,118_Q17,119_Q17,120_Q17,121_Q17,122_Q17,123_Q17,124_Q17,125_Q17,126_Q17,127_Q17,128_Q17,129_Q17,130_Q17,131_Q17,132_Q17,133_Q17,134_Q17,135_Q17,136_Q17,137_Q17,138_Q17,139_Q17,140_Q17,141_Q17,142_Q17,143_Q17,144_Q17,145_Q17,146_Q17,147_Q17,148_Q17,149_Q17,150_Q17,151_Q17,152_Q17,153_Q17,154_Q17,155_Q17,156_Q17,157_Q17,158_Q17,159_Q17,160_Q17,161_Q17,162_Q17,163_Q17,164_Q17,165_Q17,166_Q17,167_Q17,168_Q17,169_Q17,170_Q17,171_Q17,172_Q17,173_Q17,174_Q17,175_Q17,176_Q17,177_Q17,178_Q17,179_Q17,180_Q17,181_Q17,182_Q17,183_Q17,184_Q17,185_Q17,186_Q17,187_Q17,188_Q17,189_Q17,190_Q17,191_Q17,192_Q17,193_Q17,Q18_1,Q18_2,Q18_3,Q18_4,Q18_5,Q18_6,Q18_7,Q18_8,Q18_9,Q18_10,Q18_11,Q18_12,Q18_13,Q18_14,Q18_15,Q18_16,Q18_17,Q18_18,Q18_19,Q18_20,Q19,Q20,Q20_5_TEXT,Q22,Q23_1,Q23_2,Q23_3,Q23_4,Q23_5,Q23_5_TEXT,Q24,Q25,mTurkCode,words,words_expert,words_scraped,loop_count,presentation_list,word1,word2,word_list_used,attention_check_order,presentation_order,Q23_9_TEXT - Sentiment,Q23_9_TEXT - Sentiment Score,Q23_9_TEXT - Sentiment Polarity,Q23_9_TEXT - Topic Sentiment Label,Q23_9_TEXT - Topic Sentiment Score,Q23_9_TEXT - Topics,Q23_9_TEXT - Parent Topics
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,Q_RecaptchaScore,"Consent Form
+
+Title of Study: Concept Sourcing for Mental Models: A study of mental models & expertise using a video game context (eIRB#20353)
+
+Principle Investigator: Stacie Sanchez, smsanch2@ncsu.edu, (714) 514-9016
+
+Faculty Point of Contact: Dr. Chris Mayhorn, cbmayhor@ncsu.edu, (919) 513-4856
+
+____________________________________________________________________________________
+
+
+
+The purpose of this research study is to gain a better understanding of how people with different levels of expertise organize their knowledge about League of Legends. 
+
+
+
+You are being asked to complete a survey and share your League of legends player statistics with the research team for research purposes. Completing this survey is voluntary and you can stop at any time by closing your browser. You also do not need to agree to share you player data to participate in this research. You do not need to give the researchers your summoner name and server you play on if you do not want the research team to have that data. You can leave those questions blank and still participate in this research. However, this information will help the researchers on this project. 
+
+
+
+You must be 18 years of age or older to participate in this study, reside in the United States, and have experience playing League of Legends in some form of competitive setting. A competitive setting is defined as having played League of Legends in a competitive matchmaking mode, pick-up games, or through official competitions. 
+
+
+
+There are minimal risks associated with your participation in this survey. You will receive $2.00 for completion of this survey. In order to receive full compensation for completing the survey, you must enter a code after completing the survey and pass all attention checks. You will not be compensated more than once. 
+
+
+
+If you have any questions about the survey itself, how it is implemented, or survey compensation, please contact the student researcher, Stacie Sanchez, at smsanch2@ncsu.edu or (714) 514-9016, or the faculty advisor for the protocol, Dr. Chris Mayhorn, at cbmayhor@ncsu.edu or (919) 513-4856. Please refer to study number 20353 when contacting someone about this study. 
+
+
+
+If you have questions about your rights as a participant or are concerned with your treatment throughout the research process, please contact the NC State University IRB at IRB-Director@ncsu.edu or 1 (919) 515-8754 for help. 
+
+If you consent to complete this survey, please click ""I AGREE to participate in this study"".","Please affirm that all these statements are true. 
+
+I am 18 years of age or older. 
+
+I currently reside in the United States. 
+
+I have experience playing League of Legends in some form of competitive setting, such as in a competitive matchmaking mode, pick-up games, or through official competitions.",What is your current rank in League of Legends?,"In the last year, how many hours per week on average did you play League of Legends?","In the last year, how many hours per week on average did you play ranked/competitive League of Legends?",What is your Summoner Name? (optional)Note: This information will be de-identified when used to pull in game statistics from League of Legends.,Which server do you play on in  League of Legends? (optional)Note: This information will be de-identified when used to pull in game statistics from League of Legends.,How related are BIRD and LION?,How related are LION and CAT?,"Now, we want to know how related key concepts are to each other from the game League of Legends. Please review the following League of Legends concepts. 
+ 
+
+Attack Damage Carry
+
+Baron Nashor
+
+Buffs
+
+Cooldown
+
+Creep Score
+
+Crowd Control
+
+Ganking
+
+Jungling
+
+Last Hitting
+
+Map Awareness
+
+Nexus
+
+Peeling
+
+Pressure
+
+Pushing
+
+Runes
+
+Support 
+
+Tank
+
+Team Communication
+
+Turret
+
+Wards","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and",How relevant are each of the following concepts to successful gameplay in League of Legends? - Attack Damage Carry,How relevant are each of the following concepts to successful gameplay in League of Legends? - Baron Nashor,How relevant are each of the following concepts to successful gameplay in League of Legends? - Buffs,How relevant are each of the following concepts to successful gameplay in League of Legends? - Cooldown,How relevant are each of the following concepts to successful gameplay in League of Legends? - Creep Score,How relevant are each of the following concepts to successful gameplay in League of Legends? - Crowd Control,How relevant are each of the following concepts to successful gameplay in League of Legends? - Ganking,How relevant are each of the following concepts to successful gameplay in League of Legends? - Jungling,How relevant are each of the following concepts to successful gameplay in League of Legends? - Last Hitting,How relevant are each of the following concepts to successful gameplay in League of Legends? - Map Awareness,How relevant are each of the following concepts to successful gameplay in League of Legends? - Nexus,How relevant are each of the following concepts to successful gameplay in League of Legends? - Peeling,How relevant are each of the following concepts to successful gameplay in League of Legends? - Pressure,How relevant are each of the following concepts to successful gameplay in League of Legends? - Pushing,How relevant are each of the following concepts to successful gameplay in League of Legends? - Runes,How relevant are each of the following concepts to successful gameplay in League of Legends? - Support,How relevant are each of the following concepts to successful gameplay in League of Legends? - Tank,How relevant are each of the following concepts to successful gameplay in League of Legends? - Team Communication,How relevant are each of the following concepts to successful gameplay in League of Legends? - Turret,How relevant are each of the following concepts to successful gameplay in League of Legends? - Wards,How relevant are each of the following concepts to successful gameplay in League of Legends? - Attack Damage Carry,How relevant are each of the following concepts to successful gameplay in League of Legends? - Baron Nashor,How relevant are each of the following concepts to successful gameplay in League of Legends? - Buffs,How relevant are each of the following concepts to successful gameplay in League of Legends? - Cooldown,How relevant are each of the following concepts to successful gameplay in League of Legends? - Creep Score,How relevant are each of the following concepts to successful gameplay in League of Legends? - Crowd Control,How relevant are each of the following concepts to successful gameplay in League of Legends? - Ganking,How relevant are each of the following concepts to successful gameplay in League of Legends? - Jungling,How relevant are each of the following concepts to successful gameplay in League of Legends? - Last Hitting,How relevant are each of the following concepts to successful gameplay in League of Legends? - Map Awareness,How relevant are each of the following concepts to successful gameplay in League of Legends? - Nexus,How relevant are each of the following concepts to successful gameplay in League of Legends? - Peeling,How relevant are each of the following concepts to successful gameplay in League of Legends? - Pressure,How relevant are each of the following concepts to successful gameplay in League of Legends? - Pushing,How relevant are each of the following concepts to successful gameplay in League of Legends? - Runes,How relevant are each of the following concepts to successful gameplay in League of Legends? - Support,How relevant are each of the following concepts to successful gameplay in League of Legends? - Tank,How relevant are each of the following concepts to successful gameplay in League of Legends? - Team Communication,How relevant are each of the following concepts to successful gameplay in League of Legends? - Turret,How relevant are each of the following concepts to successful gameplay in League of Legends? - Wards,"Now, we want to know how related key concepts are to each other from the
+ game League of Legends. Please review the following League of Legends 
+concepts.  
+
+=============WEB CONCEPTS=============
+ 
+
+AbilityAttack DamageBuildChampionCooldownDragonItemManaMinionRuneTurretArmorBuffCrowd ControlJunglerMovement SpeedNexusPassiveSummoner's SpellRange","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and","0 - [Field-loop_count]. In League of Legends, how related are 
+
+and",How relevant are each of the following concepts to successful gameplay in League of Legends? - Ability,How relevant are each of the following concepts to successful gameplay in League of Legends? - Attack Damage,How relevant are each of the following concepts to successful gameplay in League of Legends? - Armor,How relevant are each of the following concepts to successful gameplay in League of Legends? - Buff,How relevant are each of the following concepts to successful gameplay in League of Legends? - Build,How relevant are each of the following concepts to successful gameplay in League of Legends? - Champion,How relevant are each of the following concepts to successful gameplay in League of Legends? - Cooldown,How relevant are each of the following concepts to successful gameplay in League of Legends? - Crowd Control,How relevant are each of the following concepts to successful gameplay in League of Legends? - Dragon,How relevant are each of the following concepts to successful gameplay in League of Legends? - Item,How relevant are each of the following concepts to successful gameplay in League of Legends? - Jungler,How relevant are each of the following concepts to successful gameplay in League of Legends? - Mana,How relevant are each of the following concepts to successful gameplay in League of Legends? - Minion,How relevant are each of the following concepts to successful gameplay in League of Legends? - Movement,How relevant are each of the following concepts to successful gameplay in League of Legends? - Nexus,How relevant are each of the following concepts to successful gameplay in League of Legends? - Passive,How relevant are each of the following concepts to successful gameplay in League of Legends? - Range,How relevant are each of the following concepts to successful gameplay in League of Legends? - Rune,How relevant are each of the following concepts to successful gameplay in League of Legends? - Shield,How relevant are each of the following concepts to successful gameplay in League of Legends? - Summoner's Spell,How old are you?,What is your gender identity? - Selected Choice,What is your gender identity? - Other not specified here: - Text,"Remind us, what is your current rank in League of Legends?",How much time per week on average do you play the following types of video games: - FPS: First Person Shooter e.g. Call of Duty,How much time per week on average do you play the following types of video games: - RTS: Real Time Strategy e.g. Age of Empires,How much time per week on average do you play the following types of video games: - MOBA: Multiplayer Online Battle Arena e.g. Dota2,How much time per week on average do you play the following types of video games: - MMO: Massively Multiplayer Online e.g. World of Warcraft,How much time per week on average do you play the following types of video games: - Other (Please specify:),How much time per week on average do you play the following types of video games: - Other (Please specify:) - Text,"In the last year, how much time per week on average did you spend watching content related to League of Legends, such as streamers or coaching videos?","In the last year, how much time per week on average did you spend watching professional League of Legends?",mTurkCode,words,words_expert,words_scraped,loop_count,presentation_list,word1,word2,word_list_used,attention_check_order,presentation_order,Q23_9_TEXT - Sentiment,Q23_9_TEXT - Sentiment Score,Q23_9_TEXT - Sentiment Polarity,Q23_9_TEXT - Topic Sentiment Label,Q23_9_TEXT - Topic Sentiment Score,Q23_9_TEXT - Topics,Q23_9_TEXT - Parent Topics
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""Q_RecaptchaScore""}","{""ImportId"":""QID15""}","{""ImportId"":""QID41""}","{""ImportId"":""QID29""}","{""ImportId"":""QID30""}","{""ImportId"":""QID31""}","{""ImportId"":""QID27_TEXT""}","{""ImportId"":""QID28_TEXT""}","{""ImportId"":""QID33""}","{""ImportId"":""QID34""}","{""ImportId"":""QID35""}","{""ImportId"":""1_QID42""}","{""ImportId"":""2_QID42""}","{""ImportId"":""3_QID42""}","{""ImportId"":""4_QID42""}","{""ImportId"":""5_QID42""}","{""ImportId"":""6_QID42""}","{""ImportId"":""7_QID42""}","{""ImportId"":""8_QID42""}","{""ImportId"":""9_QID42""}","{""ImportId"":""10_QID42""}","{""ImportId"":""11_QID42""}","{""ImportId"":""12_QID42""}","{""ImportId"":""13_QID42""}","{""ImportId"":""14_QID42""}","{""ImportId"":""15_QID42""}","{""ImportId"":""16_QID42""}","{""ImportId"":""17_QID42""}","{""ImportId"":""18_QID42""}","{""ImportId"":""19_QID42""}","{""ImportId"":""20_QID42""}","{""ImportId"":""21_QID42""}","{""ImportId"":""22_QID42""}","{""ImportId"":""23_QID42""}","{""ImportId"":""24_QID42""}","{""ImportId"":""25_QID42""}","{""ImportId"":""26_QID42""}","{""ImportId"":""27_QID42""}","{""ImportId"":""28_QID42""}","{""ImportId"":""29_QID42""}","{""ImportId"":""30_QID42""}","{""ImportId"":""31_QID42""}","{""ImportId"":""32_QID42""}","{""ImportId"":""33_QID42""}","{""ImportId"":""34_QID42""}","{""ImportId"":""35_QID42""}","{""ImportId"":""36_QID42""}","{""ImportId"":""37_QID42""}","{""ImportId"":""38_QID42""}","{""ImportId"":""39_QID42""}","{""ImportId"":""40_QID42""}","{""ImportId"":""41_QID42""}","{""ImportId"":""42_QID42""}","{""ImportId"":""43_QID42""}","{""ImportId"":""44_QID42""}","{""ImportId"":""45_QID42""}","{""ImportId"":""46_QID42""}","{""ImportId"":""47_QID42""}","{""ImportId"":""48_QID42""}","{""ImportId"":""49_QID42""}","{""ImportId"":""50_QID42""}","{""ImportId"":""51_QID42""}","{""ImportId"":""52_QID42""}","{""ImportId"":""53_QID42""}","{""ImportId"":""54_QID42""}","{""ImportId"":""55_QID42""}","{""ImportId"":""56_QID42""}","{""ImportId"":""57_QID42""}","{""ImportId"":""58_QID42""}","{""ImportId"":""59_QID42""}","{""ImportId"":""60_QID42""}","{""ImportId"":""61_QID42""}","{""ImportId"":""62_QID42""}","{""ImportId"":""63_QID42""}","{""ImportId"":""64_QID42""}","{""ImportId"":""65_QID42""}","{""ImportId"":""66_QID42""}","{""ImportId"":""67_QID42""}","{""ImportId"":""68_QID42""}","{""ImportId"":""69_QID42""}","{""ImportId"":""70_QID42""}","{""ImportId"":""71_QID42""}","{""ImportId"":""72_QID42""}","{""ImportId"":""73_QID42""}","{""ImportId"":""74_QID42""}","{""ImportId"":""75_QID42""}","{""ImportId"":""76_QID42""}","{""ImportId"":""77_QID42""}","{""ImportId"":""78_QID42""}","{""ImportId"":""79_QID42""}","{""ImportId"":""80_QID42""}","{""ImportId"":""81_QID42""}","{""ImportId"":""82_QID42""}","{""ImportId"":""83_QID42""}","{""ImportId"":""84_QID42""}","{""ImportId"":""85_QID42""}","{""ImportId"":""86_QID42""}","{""ImportId"":""87_QID42""}","{""ImportId"":""88_QID42""}","{""ImportId"":""89_QID42""}","{""ImportId"":""90_QID42""}","{""ImportId"":""91_QID42""}","{""ImportId"":""92_QID42""}","{""ImportId"":""93_QID42""}","{""ImportId"":""94_QID42""}","{""ImportId"":""95_QID42""}","{""ImportId"":""96_QID42""}","{""ImportId"":""97_QID42""}","{""ImportId"":""98_QID42""}","{""ImportId"":""99_QID42""}","{""ImportId"":""100_QID42""}","{""ImportId"":""101_QID42""}","{""ImportId"":""102_QID42""}","{""ImportId"":""103_QID42""}","{""ImportId"":""104_QID42""}","{""ImportId"":""105_QID42""}","{""ImportId"":""106_QID42""}","{""ImportId"":""107_QID42""}","{""ImportId"":""108_QID42""}","{""ImportId"":""109_QID42""}","{""ImportId"":""110_QID42""}","{""ImportId"":""111_QID42""}","{""ImportId"":""112_QID42""}","{""ImportId"":""113_QID42""}","{""ImportId"":""114_QID42""}","{""ImportId"":""115_QID42""}","{""ImportId"":""116_QID42""}","{""ImportId"":""117_QID42""}","{""ImportId"":""118_QID42""}","{""ImportId"":""119_QID42""}","{""ImportId"":""120_QID42""}","{""ImportId"":""121_QID42""}","{""ImportId"":""122_QID42""}","{""ImportId"":""123_QID42""}","{""ImportId"":""124_QID42""}","{""ImportId"":""125_QID42""}","{""ImportId"":""126_QID42""}","{""ImportId"":""127_QID42""}","{""ImportId"":""128_QID42""}","{""ImportId"":""129_QID42""}","{""ImportId"":""130_QID42""}","{""ImportId"":""131_QID42""}","{""ImportId"":""132_QID42""}","{""ImportId"":""133_QID42""}","{""ImportId"":""134_QID42""}","{""ImportId"":""135_QID42""}","{""ImportId"":""136_QID42""}","{""ImportId"":""137_QID42""}","{""ImportId"":""138_QID42""}","{""ImportId"":""139_QID42""}","{""ImportId"":""140_QID42""}","{""ImportId"":""141_QID42""}","{""ImportId"":""142_QID42""}","{""ImportId"":""143_QID42""}","{""ImportId"":""144_QID42""}","{""ImportId"":""145_QID42""}","{""ImportId"":""146_QID42""}","{""ImportId"":""147_QID42""}","{""ImportId"":""148_QID42""}","{""ImportId"":""149_QID42""}","{""ImportId"":""150_QID42""}","{""ImportId"":""151_QID42""}","{""ImportId"":""152_QID42""}","{""ImportId"":""153_QID42""}","{""ImportId"":""154_QID42""}","{""ImportId"":""155_QID42""}","{""ImportId"":""156_QID42""}","{""ImportId"":""157_QID42""}","{""ImportId"":""158_QID42""}","{""ImportId"":""159_QID42""}","{""ImportId"":""160_QID42""}","{""ImportId"":""161_QID42""}","{""ImportId"":""162_QID42""}","{""ImportId"":""163_QID42""}","{""ImportId"":""164_QID42""}","{""ImportId"":""165_QID42""}","{""ImportId"":""166_QID42""}","{""ImportId"":""167_QID42""}","{""ImportId"":""168_QID42""}","{""ImportId"":""169_QID42""}","{""ImportId"":""170_QID42""}","{""ImportId"":""171_QID42""}","{""ImportId"":""172_QID42""}","{""ImportId"":""173_QID42""}","{""ImportId"":""174_QID42""}","{""ImportId"":""175_QID42""}","{""ImportId"":""176_QID42""}","{""ImportId"":""177_QID42""}","{""ImportId"":""178_QID42""}","{""ImportId"":""179_QID42""}","{""ImportId"":""180_QID42""}","{""ImportId"":""181_QID42""}","{""ImportId"":""182_QID42""}","{""ImportId"":""183_QID42""}","{""ImportId"":""184_QID42""}","{""ImportId"":""185_QID42""}","{""ImportId"":""186_QID42""}","{""ImportId"":""187_QID42""}","{""ImportId"":""188_QID42""}","{""ImportId"":""189_QID42""}","{""ImportId"":""190_QID42""}","{""ImportId"":""191_QID42""}","{""ImportId"":""192_QID42""}","{""ImportId"":""193_QID42""}","{""ImportId"":""QID38_1""}","{""ImportId"":""QID38_2""}","{""ImportId"":""QID38_3""}","{""ImportId"":""QID38_5""}","{""ImportId"":""QID38_6""}","{""ImportId"":""QID38_7""}","{""ImportId"":""QID38_8""}","{""ImportId"":""QID38_9""}","{""ImportId"":""QID38_10""}","{""ImportId"":""QID38_11""}","{""ImportId"":""QID38_12""}","{""ImportId"":""QID38_13""}","{""ImportId"":""QID38_14""}","{""ImportId"":""QID38_15""}","{""ImportId"":""QID38_16""}","{""ImportId"":""QID38_17""}","{""ImportId"":""QID38_18""}","{""ImportId"":""QID38_19""}","{""ImportId"":""QID38_20""}","{""ImportId"":""QID38_21""}","{""ImportId"":""QID49_1""}","{""ImportId"":""QID49_2""}","{""ImportId"":""QID49_3""}","{""ImportId"":""QID49_5""}","{""ImportId"":""QID49_6""}","{""ImportId"":""QID49_7""}","{""ImportId"":""QID49_8""}","{""ImportId"":""QID49_9""}","{""ImportId"":""QID49_10""}","{""ImportId"":""QID49_11""}","{""ImportId"":""QID49_12""}","{""ImportId"":""QID49_13""}","{""ImportId"":""QID49_14""}","{""ImportId"":""QID49_15""}","{""ImportId"":""QID49_16""}","{""ImportId"":""QID49_17""}","{""ImportId"":""QID49_18""}","{""ImportId"":""QID49_19""}","{""ImportId"":""QID49_20""}","{""ImportId"":""QID49_21""}","{""ImportId"":""QID36""}","{""ImportId"":""1_QID40""}","{""ImportId"":""2_QID40""}","{""ImportId"":""3_QID40""}","{""ImportId"":""4_QID40""}","{""ImportId"":""5_QID40""}","{""ImportId"":""6_QID40""}","{""ImportId"":""7_QID40""}","{""ImportId"":""8_QID40""}","{""ImportId"":""9_QID40""}","{""ImportId"":""10_QID40""}","{""ImportId"":""11_QID40""}","{""ImportId"":""12_QID40""}","{""ImportId"":""13_QID40""}","{""ImportId"":""14_QID40""}","{""ImportId"":""15_QID40""}","{""ImportId"":""16_QID40""}","{""ImportId"":""17_QID40""}","{""ImportId"":""18_QID40""}","{""ImportId"":""19_QID40""}","{""ImportId"":""20_QID40""}","{""ImportId"":""21_QID40""}","{""ImportId"":""22_QID40""}","{""ImportId"":""23_QID40""}","{""ImportId"":""24_QID40""}","{""ImportId"":""25_QID40""}","{""ImportId"":""26_QID40""}","{""ImportId"":""27_QID40""}","{""ImportId"":""28_QID40""}","{""ImportId"":""29_QID40""}","{""ImportId"":""30_QID40""}","{""ImportId"":""31_QID40""}","{""ImportId"":""32_QID40""}","{""ImportId"":""33_QID40""}","{""ImportId"":""34_QID40""}","{""ImportId"":""35_QID40""}","{""ImportId"":""36_QID40""}","{""ImportId"":""37_QID40""}","{""ImportId"":""38_QID40""}","{""ImportId"":""39_QID40""}","{""ImportId"":""40_QID40""}","{""ImportId"":""41_QID40""}","{""ImportId"":""42_QID40""}","{""ImportId"":""43_QID40""}","{""ImportId"":""44_QID40""}","{""ImportId"":""45_QID40""}","{""ImportId"":""46_QID40""}","{""ImportId"":""47_QID40""}","{""ImportId"":""48_QID40""}","{""ImportId"":""49_QID40""}","{""ImportId"":""50_QID40""}","{""ImportId"":""51_QID40""}","{""ImportId"":""52_QID40""}","{""ImportId"":""53_QID40""}","{""ImportId"":""54_QID40""}","{""ImportId"":""55_QID40""}","{""ImportId"":""56_QID40""}","{""ImportId"":""57_QID40""}","{""ImportId"":""58_QID40""}","{""ImportId"":""59_QID40""}","{""ImportId"":""60_QID40""}","{""ImportId"":""61_QID40""}","{""ImportId"":""62_QID40""}","{""ImportId"":""63_QID40""}","{""ImportId"":""64_QID40""}","{""ImportId"":""65_QID40""}","{""ImportId"":""66_QID40""}","{""ImportId"":""67_QID40""}","{""ImportId"":""68_QID40""}","{""ImportId"":""69_QID40""}","{""ImportId"":""70_QID40""}","{""ImportId"":""71_QID40""}","{""ImportId"":""72_QID40""}","{""ImportId"":""73_QID40""}","{""ImportId"":""74_QID40""}","{""ImportId"":""75_QID40""}","{""ImportId"":""76_QID40""}","{""ImportId"":""77_QID40""}","{""ImportId"":""78_QID40""}","{""ImportId"":""79_QID40""}","{""ImportId"":""80_QID40""}","{""ImportId"":""81_QID40""}","{""ImportId"":""82_QID40""}","{""ImportId"":""83_QID40""}","{""ImportId"":""84_QID40""}","{""ImportId"":""85_QID40""}","{""ImportId"":""86_QID40""}","{""ImportId"":""87_QID40""}","{""ImportId"":""88_QID40""}","{""ImportId"":""89_QID40""}","{""ImportId"":""90_QID40""}","{""ImportId"":""91_QID40""}","{""ImportId"":""92_QID40""}","{""ImportId"":""93_QID40""}","{""ImportId"":""94_QID40""}","{""ImportId"":""95_QID40""}","{""ImportId"":""96_QID40""}","{""ImportId"":""97_QID40""}","{""ImportId"":""98_QID40""}","{""ImportId"":""99_QID40""}","{""ImportId"":""100_QID40""}","{""ImportId"":""101_QID40""}","{""ImportId"":""102_QID40""}","{""ImportId"":""103_QID40""}","{""ImportId"":""104_QID40""}","{""ImportId"":""105_QID40""}","{""ImportId"":""106_QID40""}","{""ImportId"":""107_QID40""}","{""ImportId"":""108_QID40""}","{""ImportId"":""109_QID40""}","{""ImportId"":""110_QID40""}","{""ImportId"":""111_QID40""}","{""ImportId"":""112_QID40""}","{""ImportId"":""113_QID40""}","{""ImportId"":""114_QID40""}","{""ImportId"":""115_QID40""}","{""ImportId"":""116_QID40""}","{""ImportId"":""117_QID40""}","{""ImportId"":""118_QID40""}","{""ImportId"":""119_QID40""}","{""ImportId"":""120_QID40""}","{""ImportId"":""121_QID40""}","{""ImportId"":""122_QID40""}","{""ImportId"":""123_QID40""}","{""ImportId"":""124_QID40""}","{""ImportId"":""125_QID40""}","{""ImportId"":""126_QID40""}","{""ImportId"":""127_QID40""}","{""ImportId"":""128_QID40""}","{""ImportId"":""129_QID40""}","{""ImportId"":""130_QID40""}","{""ImportId"":""131_QID40""}","{""ImportId"":""132_QID40""}","{""ImportId"":""133_QID40""}","{""ImportId"":""134_QID40""}","{""ImportId"":""135_QID40""}","{""ImportId"":""136_QID40""}","{""ImportId"":""137_QID40""}","{""ImportId"":""138_QID40""}","{""ImportId"":""139_QID40""}","{""ImportId"":""140_QID40""}","{""ImportId"":""141_QID40""}","{""ImportId"":""142_QID40""}","{""ImportId"":""143_QID40""}","{""ImportId"":""144_QID40""}","{""ImportId"":""145_QID40""}","{""ImportId"":""146_QID40""}","{""ImportId"":""147_QID40""}","{""ImportId"":""148_QID40""}","{""ImportId"":""149_QID40""}","{""ImportId"":""150_QID40""}","{""ImportId"":""151_QID40""}","{""ImportId"":""152_QID40""}","{""ImportId"":""153_QID40""}","{""ImportId"":""154_QID40""}","{""ImportId"":""155_QID40""}","{""ImportId"":""156_QID40""}","{""ImportId"":""157_QID40""}","{""ImportId"":""158_QID40""}","{""ImportId"":""159_QID40""}","{""ImportId"":""160_QID40""}","{""ImportId"":""161_QID40""}","{""ImportId"":""162_QID40""}","{""ImportId"":""163_QID40""}","{""ImportId"":""164_QID40""}","{""ImportId"":""165_QID40""}","{""ImportId"":""166_QID40""}","{""ImportId"":""167_QID40""}","{""ImportId"":""168_QID40""}","{""ImportId"":""169_QID40""}","{""ImportId"":""170_QID40""}","{""ImportId"":""171_QID40""}","{""ImportId"":""172_QID40""}","{""ImportId"":""173_QID40""}","{""ImportId"":""174_QID40""}","{""ImportId"":""175_QID40""}","{""ImportId"":""176_QID40""}","{""ImportId"":""177_QID40""}","{""ImportId"":""178_QID40""}","{""ImportId"":""179_QID40""}","{""ImportId"":""180_QID40""}","{""ImportId"":""181_QID40""}","{""ImportId"":""182_QID40""}","{""ImportId"":""183_QID40""}","{""ImportId"":""184_QID40""}","{""ImportId"":""185_QID40""}","{""ImportId"":""186_QID40""}","{""ImportId"":""187_QID40""}","{""ImportId"":""188_QID40""}","{""ImportId"":""189_QID40""}","{""ImportId"":""190_QID40""}","{""ImportId"":""191_QID40""}","{""ImportId"":""192_QID40""}","{""ImportId"":""193_QID40""}","{""ImportId"":""QID46_1""}","{""ImportId"":""QID46_2""}","{""ImportId"":""QID46_3""}","{""ImportId"":""QID46_4""}","{""ImportId"":""QID46_5""}","{""ImportId"":""QID46_6""}","{""ImportId"":""QID46_7""}","{""ImportId"":""QID46_8""}","{""ImportId"":""QID46_9""}","{""ImportId"":""QID46_10""}","{""ImportId"":""QID46_11""}","{""ImportId"":""QID46_12""}","{""ImportId"":""QID46_13""}","{""ImportId"":""QID46_14""}","{""ImportId"":""QID46_15""}","{""ImportId"":""QID46_16""}","{""ImportId"":""QID46_17""}","{""ImportId"":""QID46_18""}","{""ImportId"":""QID46_19""}","{""ImportId"":""QID46_20""}","{""ImportId"":""QID21_TEXT""}","{""ImportId"":""QID22""}","{""ImportId"":""QID22_5_TEXT""}","{""ImportId"":""QID19""}","{""ImportId"":""QID20_1""}","{""ImportId"":""QID20_2""}","{""ImportId"":""QID20_3""}","{""ImportId"":""QID20_4""}","{""ImportId"":""QID20_9""}","{""ImportId"":""QID20_9_TEXT""}","{""ImportId"":""QID47""}","{""ImportId"":""QID48""}","{""ImportId"":""mTurkCode""}","{""ImportId"":""words""}","{""ImportId"":""words_expert""}","{""ImportId"":""words_scraped""}","{""ImportId"":""loop_count""}","{""ImportId"":""presentation_list""}","{""ImportId"":""word1""}","{""ImportId"":""word2""}","{""ImportId"":""word_list_used""}","{""ImportId"":""attention_check_order""}","{""ImportId"":""presentation_order""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fSentiment""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fSenScore""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fSenPol""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fTopicSenLabel""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fTopicSenScore""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fTopics""}","{""ImportId"":""QID20_9_TEXT_7c073c0b81c5401e8c346e3fParTopics""}"
+2020-12-08 20:16:02,2020-12-08 20:16:10,1,*******,100,7,1,2020-12-08 20:16:11,R_SBH5km0AqUZGt45,*******,*******,*******,*******,*******,*******,preview,EN,0.9,5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,198009,"Attack Damage Carry,Baron Nashor,Buffs,Cooldown,Creep Score,Crowd Control,Ganking,Jungling,Last Hitting,Map Awareness,Nexus,Peeling,Pressure,Pushing,Runes,Support ,Tank,Team Communication,Turret,Wards","banana, apple, pineapple, grapefruit, orange, carrot, zucchini, cabbage, potato, onion, lemon, lime, rutabaga, cherry, grape, melon, mushroom, broccoli, strawberry, raspberry","dog, cat, rabbit, mouse, gecko, snake, chameleon, bird, fish, bear, fox, moose, porcupine, hedgehog, eagle, racoon, possum, deer, parrot, bumblebee",1,,,,,,,,,,,,,
+2020-12-08 21:20:26,2020-12-08 21:27:47,1,*******,100,440,1,2020-12-08 21:27:48,R_3HMjUu4IHjwAwhY,*******,*******,*******,*******,*******,*******,preview,EN,0.9,4,1,5,1,1,a,b,1,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,9,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,2,4,1,2,3,4,1,2,3,1,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,5,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,,,,1,2,3,4,5,1,2,1,2,3,4,5,1,2,1,2,3,4,5,1,33,2,,5,1,2,3,4,5,asdf,1,1,647041,"Attack Damage Carry,Baron Nashor,Buffs,Cooldown,Creep Score,Crowd Control,Ganking,Jungling,Last Hitting,Map Awareness,Nexus,Peeling,Pressure,Pushing,Runes,Support ,Tank,Team Communication,Turret,Wards","banana, apple, pineapple, grapefruit, orange, carrot, zucchini, cabbage, potato, onion, lemon, lime, rutabaga, cherry, grape, melon, mushroom, broccoli, strawberry, raspberry","dog, cat, rabbit, mouse, gecko, snake, chameleon, bird, fish, bear, fox, moose, porcupine, hedgehog, eagle, racoon, possum, deer, parrot, bumblebee",191,"10&17,14&18,0&9,0&11,12&15,9&13,9&12,7&14,7&15,18&19,12&13,7&19,16&19,4&9,3&14,4&8,0&6,7&13,1&17,4&6,0&18,6&14,12&17,12&16,5&10,0&10,4&11,0&7,6&10,3&8,1&15,2&4,1&13,3&4,9&16,12&18,10&19,0&14,4&19,0&4,10&15,7&9,5&16,3&5,1&7,15&19,9&19,check0,5&19,0&19,12&19,17&18,11&12,2&19,0&2,3&15,3&11,16&18,8&10,3&16,15&16,7&11,13&15,13&17,1&8,11&16,1&12,8&9,7&10,1&2,5&8,10&11,3&13,7&8,8&15,4&13,7&17,8&11,4&10,11&14,5&17,2&6,0&8,11&19,3&9,13&18,1&14,3&6,9&10,5&15,2&14,8&13,2&8,2&10,9&11,check1,15&18,2&12,5&7,10&13,2&7,4&15,3&17,4&14,7&12,0&12,4&7,2&17,8&19,5&6,10&14,5&9,3&19,6&12,17&19,2&13,1&18,8&12,9&18,5&12,3&10,14&17,4&17,9&15,6&19,0&15,0&1,14&19,11&13,14&16,5&18,0&13,11&15,1&10,3&18,6&8,6&11,12&14,16&17,1&19,6&7,0&5,check2,8&18,6&17,4&5,1&4,1&5,13&16,9&17,2&5,13&19,2&15,10&12,5&14,7&18,8&17,2&9,0&3,13&14,5&13,2&18,1&3,2&16,1&6,1&9,6&18,9&14,11&17,0&17,6&16,14&15,11&18,2&3,6&9,8&16,8&14,6&13,6&15,10&16,4&12,5&11,15&17,3&7,0&16,2&11,3&12,1&16,10&18,4&18,7&16,1&11,4&16", gecko, parrot,words_scraped,"Highly Related,Highly Unrelated,Neutral",,Neutral,0,0,,,Unknown,
+2020-12-08 21:41:51,2020-12-08 21:49:15,1,*******,100,443,1,2020-12-08 21:49:16,R_3KIUhX6uwUyMyPA,*******,*******,*******,*******,*******,*******,preview,EN,0.9,4,1,5,1,1,abc,def,1,2,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,5,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,1,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,3,1,1,3,5,4,1,2,3,4,2,5,4,3,2,4,5,3,4,3,1,5,4,4,5,4,3,1,5,2,2,3,2,2,3,3,1,4,5,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,33,2,,5,1,2,3,4,5,sadf,1,1,662945,"Attack Damage Carry,Baron Nashor,Buffs,Cooldown,Creep Score,Crowd Control,Ganking,Jungling,Last Hitting,Map Awareness,Nexus,Peeling,Pressure,Pushing,Runes,Support ,Tank,Team Communication,Turret,Wards","banana, apple, pineapple, grapefruit, orange, carrot, zucchini, cabbage, potato, onion, lemon, lime, rutabaga, cherry, grape, melon, mushroom, broccoli, strawberry, raspberry","dog, cat, rabbit, mouse, gecko, snake, chameleon, bird, fish, bear, fox, moose, porcupine, hedgehog, eagle, racoon, possum, deer, parrot, bumblebee",194,"7&15,2&14,1&2,1&13,11&13,1&15,5&6,2&11,2&15,11&19,0&17,11&12,7&9,2&6,18&19,13&19,9&12,6&14,0&5,1&12,12&19,5&19,9&19,1&10,12&14,6&16,9&15,5&7,3&13,4&15,2&19,14&16,9&10,15&17,0&9,10&19,9&11,6&11,5&15,17&19,5&16,15&16,8&18,5&11,1&14,12&18,10&18,check0,16&19,12&13,10&11,1&4,4&6,9&17,1&17,12&16,2&4,8&9,4&5,3&9,1&6,11&15,15&19,8&19,3&15,3&8,10&13,11&16,3&11,9&16,6&7,2&3,14&18,1&18,4&16,5&17,0&19,6&15,7&11,0&15,1&16,4&13,0&16,1&9,6&10,6&12,3&6,7&8,5&14,2&17,8&12,11&14,5&12,0&10,5&9,check1,0&13,6&19,3&4,0&11,7&19,13&17,10&12,2&8,13&14,13&18,4&14,8&15,7&14,5&18,16&17,6&8,7&16,0&2,11&17,1&8,10&17,17&18,3&19,5&8,0&4,3&12,8&16,10&16,8&14,0&1,9&13,0&12,4&17,12&17,4&10,15&18,3&5,1&3,4&8,12&15,4&11,3&18,10&14,7&12,5&13,8&10,check2,2&16,13&15,0&6,8&13,6&18,13&16,2&7,3&17,7&18,4&9,11&18,4&18,1&5,7&13,1&7,1&11,8&17,4&7,6&9,2&9,3&10,0&14,0&8,3&14,2&18,0&18,16&18,2&5,8&11,7&17,4&19,2&10,0&7,7&10,1&19,0&3,2&13,4&12,14&17,6&17,9&18,3&16,5&10,9&14,2&12,10&15,6&13,14&15,3&7,14&19", grape, raspberry,words_expert,"Neutral,Highly Unrelated,Highly Related","1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,1,0,0,1,0,1,1,0,0,0,1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,1,check0,1,1,0,1,1,0,1,1,0,0,1,0,1,0,0,1,0,1,1,1,0,1,1,1,0,1,0,0,0,1,1,0,1,0,1,0,0,1,1,1,1,1,0,0,0,1,1,check1,0,0,0,1,1,1,0,0,1,0,0,0,1,1,0,1,0,0,0,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,0,0,0,0,1,1,0,1,0,0,check2,1,1,1,1,0,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,1,1,1,0,1,1,0,0,0,1,1,0,0,0,1,1,1,0,0,1,1,0,1,0,1,1,1,1,1,0",Neutral,0,0,,,Unknown,
+2020-12-08 22:29:04,2020-12-08 22:35:12,1,*******,100,367,1,2020-12-08 22:35:13,R_3fjkS2cmXyNvlcJ,*******,*******,*******,*******,*******,*******,preview,EN,0.9,4,1,5,1,1,zxvc,qwer,1,2,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,1,5,5,4,3,4,3,5,1,3,1,1,1,4,3,3,3,2,2,2,2,5,3,2,2,4,1,5,1,2,3,1,4,5,1,3,4,5,3,4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,2,,5,1,2,3,4,5,asadf,1,1,306939,"Attack Damage Carry,Baron Nashor,Buffs,Cooldown,Creep Score,Crowd Control,Ganking,Jungling,Last Hitting,Map Awareness,Nexus,Peeling,Pressure,Pushing,Runes,Support ,Tank,Team Communication,Turret,Wards","banana, apple, pineapple, grapefruit, orange, carrot, zucchini, cabbage, potato, onion, lemon, lime, rutabaga, cherry, grape, melon, mushroom, broccoli, strawberry, raspberry","dog, cat, rabbit, mouse, gecko, snake, chameleon, bird, fish, bear, fox, moose, porcupine, hedgehog, eagle, racoon, possum, deer, parrot, bumblebee",194,"5&7,0&5,12&16,13&17,9&17,0&15,9&13,9&19,1&3,7&13,2&8,13&14,6&15,10&15,3&18,5&12,4&12,1&14,4&17,3&15,14&18,9&10,5&13,11&15,8&10,2&10,13&15,6&8,3&14,5&17,0&8,0&9,0&10,7&14,4&8,2&18,7&12,3&16,2&11,7&15,1&13,17&19,1&4,3&12,8&15,0&18,16&18,5&19,check0,8&19,3&11,0&14,10&14,6&9,0&16,14&19,9&15,6&17,0&3,4&16,13&19,6&7,9&16,4&6,8&18,0&7,1&16,2&14,3&7,1&8,1&2,6&11,8&13,2&9,6&18,3&13,5&15,8&9,6&14,14&17,4&15,12&13,2&3,7&19,1&15,1&6,5&11,5&16,1&12,15&17,0&6,14&15,2&17,3&5,12&17,10&12,check1,2&5,1&19,1&10,7&10,2&16,6&12,2&12,11&14,11&13,2&6,12&18,17&18,5&8,16&17,8&14,10&19,10&16,4&10,3&17,7&17,12&15,3&9,6&16,11&16,2&19,0&19,1&11,15&18,4&9,5&10,11&18,0&4,5&18,7&9,2&13,11&19,0&13,9&11,9&14,3&19,0&17,16&19,11&17,7&16,14&16,3&8,15&19,check2,0&11,11&12,8&16,0&12,5&6,0&2,10&18,1&9,15&16,8&11,4&11,2&7,9&12,10&13,3&10,8&12,4&7,4&5,3&4,6&13,1&18,2&4,12&14,1&5,1&7,1&17,10&17,4&18,4&13,4&19,6&19,3&6,13&16,6&10,5&9,7&11,7&18,9&18,12&19,4&14,10&11,5&14,2&15,13&18,0&1,7&8,8&17,18&19", strawberry, raspberry,words_expert,"Highly Related,Neutral,Highly Unrelated","1,0,1,1,0,1,1,0,0,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,0,0,0,1,1,0,1,0,1,1,1,1,1,1,check0,0,0,1,0,1,1,0,0,0,0,1,1,1,0,0,0,1,1,1,1,0,1,1,0,1,0,1,0,1,1,0,1,0,0,1,1,0,1,1,0,1,1,0,0,1,1,0,check1,1,0,0,0,1,1,1,0,1,1,1,0,1,0,1,1,0,1,0,0,0,0,1,1,1,1,0,1,1,0,0,0,1,0,1,0,0,1,1,1,1,1,0,1,0,1,1,check2,0,0,1,0,1,1,0,1,0,0,1,1,0,0,0,1,1,1,0,0,1,0,0,0,1,0,1,1,0,1,1,0,0,1,1,1,1,1,0,0,0,0,1,0,1,1,0,1",Neutral,0,0,,,Unknown,
+2020-12-08 22:38:47,2020-12-08 22:44:20,1,*******,100,332,1,2020-12-08 22:44:21,R_eo2XyBuOMNwYyZz,*******,*******,*******,*******,*******,*******,preview,EN,0.9,4,1,5,1,1,jkl,jkl,4,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,1,2,3,4,5,1,2,1,2,3,4,5,1,2,1,2,3,4,5,1,23,2,,5,1,2,3,4,5,sadf,1,1,195282,"Attack Damage Carry,Baron Nashor,Buffs,Cooldown,Creep Score,Crowd Control,Ganking,Jungling,Last Hitting,Map Awareness,Nexus,Peeling,Pressure,Pushing,Runes,Support ,Tank,Team Communication,Turret,Wards","banana, apple, pineapple, grapefruit, orange, carrot, zucchini, cabbage, potato, onion, lemon, lime, rutabaga, cherry, grape, melon, mushroom, broccoli, strawberry, raspberry","dog, cat, rabbit, mouse, gecko, snake, chameleon, bird, fish, bear, fox, moose, porcupine, hedgehog, eagle, racoon, possum, deer, parrot, bumblebee",194,"14&17,2&14,10&13,1&10,0&3,0&1,10&19,10&17,9&13,12&14,3&7,5&8,2&6,0&15,7&17,3&16,4&8,16&18,8&15,10&11,3&17,6&10,11&18,15&19,3&19,5&6,4&16,10&18,11&15,6&19,15&18,14&19,17&19,4&18,0&9,2&13,3&10,11&14,5&11,4&10,10&12,6&11,7&10,9&16,11&13,6&13,3&5,7&14,check0,1&15,4&12,0&7,6&12,1&2,4&11,6&14,8&14,8&13,2&10,7&16,9&11,10&16,5&7,6&16,16&17,9&12,5&9,6&9,7&8,4&19,5&19,4&14,1&19,1&5,12&17,2&3,3&9,3&12,4&6,1&13,3&15,4&17,4&7,7&12,0&11,8&18,10&15,10&14,2&9,9&15,1&18,18&19,12&13,6&15,2&11,8&11,check1,13&18,0&10,6&7,4&13,5&12,9&14,17&18,11&17,0&14,0&12,0&8,6&18,0&18,6&8,3&14,14&16,16&19,15&17,5&17,1&7,2&18,4&9,4&15,11&12,9&17,3&8,0&2,7&19,7&9,4&5,15&16,5&14,8&9,0&6,1&14,0&19,1&17,8&16,0&13,2&12,3&18,2&15,7&18,8&12,2&17,12&18,12&16,check2,14&15,2&7,11&19,9&10,9&18,5&10,3&6,7&13,5&13,13&15,8&10,1&3,1&9,12&19,13&17,5&15,13&14,2&4,14&18,8&19,3&11,2&19,5&18,13&16,7&11,2&16,2&8,0&4,0&17,1&4,1&16,1&6,0&5,2&5,9&19,7&15,12&15,6&17,5&16,1&8,11&16,8&17,0&16,13&19,1&12,3&4,3&13,1&11", cat, moose,words_scraped,"Highly Related,Neutral,Highly Unrelated","1,1,0,0,1,1,0,1,1,1,1,1,0,0,0,0,1,0,1,1,0,1,1,1,1,0,0,1,1,0,0,0,1,1,0,1,1,1,0,1,1,0,1,1,0,0,1,1,check0,0,0,0,1,0,1,1,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,1,0,0,1,1,1,1,check1,0,1,0,1,1,1,0,0,1,1,0,0,0,0,0,1,0,1,0,0,1,1,0,0,1,0,0,0,1,1,1,0,0,0,0,1,1,0,1,1,1,0,1,0,0,1,0,check2,1,0,0,1,1,1,1,0,0,1,0,0,1,1,0,0,1,0,1,0,1,1,0,0,0,1,0,1,0,0,0,0,1,1,0,0,0,1,1,1,1,0,0,0,1,1,0,1",Neutral,0,0,,,Unknown,
+2020-12-08 22:45:32,2020-12-08 22:50:43,0,*******,100,311,1,2020-12-08 22:50:44,R_3CINs7dDBufDsEx,*******,*******,*******,*******,*******,*******,anonymous,EN,0.9,4,1,5,1,1,asdf,qwer,1,2,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,3,4,2,3,3,2,1,1,3,2,5,1,3,4,5,4,3,2,5,2,3,1,4,3,5,5,2,4,1,2,4,2,5,5,1,1,2,3,4,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,33,2,,5,1,2,3,4,5,asdf,1,1,776893,"Attack Damage Carry,Baron Nashor,Buffs,Cooldown,Creep Score,Crowd Control,Ganking,Jungling,Last Hitting,Map Awareness,Nexus,Peeling,Pressure,Pushing,Runes,Support ,Tank,Team Communication,Turret,Wards","banana, apple, pineapple, grapefruit, orange, carrot, zucchini, cabbage, potato, onion, lemon, lime, rutabaga, cherry, grape, melon, mushroom, broccoli, strawberry, raspberry","dog, cat, rabbit, mouse, gecko, snake, chameleon, bird, fish, bear, fox, moose, porcupine, hedgehog, eagle, racoon, possum, deer, parrot, bumblebee",194,"9&12,2&10,1&4,2&7,10&14,6&14,11&13,7&15,5&6,1&9,10&12,9&19,6&19,7&11,6&11,0&15,3&18,4&19,6&13,14&16,4&10,1&7,2&6,2&3,6&7,4&16,1&15,5&15,2&12,6&15,9&13,4&7,13&16,0&7,13&14,1&19,12&18,5&10,3&10,6&10,0&10,2&17,2&19,9&16,14&15,16&19,7&13,1&14,check0,2&15,9&11,10&18,2&18,5&14,9&17,7&9,8&13,3&5,4&8,0&16,0&2,3&6,6&12,13&19,3&11,2&8,4&14,5&9,0&3,6&8,5&11,7&18,8&16,3&16,1&2,2&5,6&18,9&18,12&16,8&18,0&19,10&19,10&16,12&13,0&14,5&17,11&18,14&19,12&19,6&16,4&6,4&12,8&15,10&15,12&15,2&9,check1,5&8,7&19,15&16,13&15,11&16,16&18,0&9,7&17,3&12,8&12,9&10,7&12,13&17,16&17,8&10,0&17,10&13,0&6,11&14,11&12,3&4,6&17,3&17,1&6,17&19,2&4,2&16,10&11,5&16,8&9,10&17,4&11,14&17,1&16,4&17,1&3,4&13,1&12,4&18,3&8,5&12,0&11,0&4,7&16,2&13,7&8,0&8,check2,15&18,3&14,4&9,1&18,3&15,7&14,14&18,8&14,13&18,1&13,8&19,9&14,4&5,0&12,17&18,3&7,15&17,8&11,2&11,4&15,6&9,8&17,0&5,3&9,1&11,3&13,1&17,9&15,15&19,0&1,1&8,11&17,7&10,11&15,0&13,12&17,5&19,3&19,1&5,5&7,1&10,5&18,0&18,12&14,18&19,2&14,11&19,5&13", carrot, cherry,words_expert,"Highly Unrelated,Highly Related,Neutral","1,0,1,1,1,0,0,1,1,1,0,0,1,0,1,1,0,0,1,0,1,0,1,0,0,1,0,1,0,1,1,1,0,1,1,0,1,1,1,0,0,0,1,1,0,0,0,0,check0,1,0,1,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,0,1,1,1,0,0,1,1,0,0,0,0,0,1,1,1,1,check1,0,1,1,0,1,0,1,0,1,1,0,1,1,1,0,1,0,0,1,1,0,1,1,0,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,1,check2,1,1,0,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,0,0,1,0,1,0,1,1,1,0,1,0,0,1,0,1,1,1,1,0,0,0,1,0,1,0,1",,,,,,,

@@ -27,6 +27,11 @@ LIMIT_RETRIES = 5
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--log', default = "INFO", type=str)
+parser.add_argument('-q','--quiet', default=False,action="store_true")
+parser.add_argument('-t','--tiers', default="CGMDP", type=str,help="which tiers to look at,\n"\
+	"[C]hallenger, [G]randmaster, [M]aster, [D]iamond, [P]latinum, G[O]ld, [S]ilver, [B]ronze, [I]ron")
+parser.add_argument('-s','--batchsize', default=100, type=int, help="batch size")
+parser.add_argument('-n','--numbatches',default=100,type=int, help="number of batches")
 args = parser.parse_args()
 log_level = logging.INFO
 if args.log.lower() in utils.LOG_LEVELS:
@@ -265,8 +270,8 @@ class mainThread(threading.Thread):
 threads = list()
 for region in regions:
 	#thread = threading.Thread(target=main, args=(region,), daemon = True)	
-	thread = mainThread(region, tiers=['CHALLENGER', 'GRANDMASTER', 'MASTER', 'DIAMOND','PLATINUM'],
-						batchsize=100, num_batches=100, daemon=True, log_level=log_level)
+	thread = mainThread(region, tiers=tiers,
+						batchsize=args.batchsize, num_batches=args.numbatches, log_level=log_level)
 	threads.append(thread)
 
 for thread in threads:
