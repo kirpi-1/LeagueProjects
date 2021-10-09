@@ -121,7 +121,7 @@ class mainThread(threading.Thread):
 				for idx, record in enumerate(list(records)):
 					accountId = record[accountIdx]
 					
-					req = f'https://{self.region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{accountId}'#?beginIndex=100'
+					req = f'https://{self.region}.api.riotgames.com/lol/match/v5/matchlists/by-account/{accountId}'#?beginIndex=100'
 					
 					resp = self.request(req)
 					time.sleep(1/rate)
