@@ -6,3 +6,5 @@ progress*.txt
 league_data_notebook.ipynb
 .ipynb_checkpoints
 pguser.txt
+data.zip
+data.7z
