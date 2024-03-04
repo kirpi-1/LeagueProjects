@@ -29,7 +29,7 @@ def save_progress(region, rank, division, page):
 	with open(f"data/progress_{region}.txt",'w') as f:
 		f.write(f"{rank}\n{division}\n{page}\n")
 
-def load_progress(region):	
+def load_progress(region):
 	filename = f"data/progress_{region}.txt"
 	rank = 0
 	division = 0
@@ -38,19 +38,19 @@ def load_progress(region):
 	if os.path.exists(filename):
 		with open(filename,'r',encoding='utf-8') as f:
 			l = f.readline()
-			while l!="":				
+			while l!="":
 				vals.append(l)
 				l = f.readline()
-		if len(vals)==3:		
+		if len(vals)==3:
 			rank = int(vals[0])
 			division = int(vals[1])
-			page = int(vals[2])		
-	
+			page = int(vals[2])
+
 	return rank, division, page
 
 # get list of summoners in regular ranks
 
-ranks = ['IRON','BRONZE','SILVER','GOLD','PLATINUM','DIAMOND']
+ranks = ['IRON','BRONZE','SILVER','GOLD','PLATINUM','EMERALD','DIAMOND']
 divisions = ['I','II','III','IV']
 regions = ['na1','br1','eun1','euw1','jp1','kr','la1','la2','oc1','ru','tr1']#na1 also
 
@@ -59,26 +59,26 @@ class mainThread(threading.Thread):
 		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)
 		self.region = region
 		self.lock = lock
-		self.batchsize = batchsize		
-		self.logger = utils.set_up_logger(name=region,file=f"data/status_{region}.log")		
+		self.batchsize = batchsize
+		self.logger = utils.set_up_logger(name=region,file=f"data/status_{region}.log")
 		self.msg = ""
 		self.database = database
-		
+
 	def run(self):
 		global quitEvent
-		region = self.region		
+		region = self.region
 		starting_rank_idx, starting_division_idx,starting_page = load_progress(region)
 		self.logger.info(f"starting at {starting_rank_idx}, {starting_division_idx}, {starting_page}")
 		rank_idx = starting_rank_idx
-		while rank_idx < len(ranks):		
-			rank = ranks[rank_idx]		
-			out = pd.DataFrame()			
+		while rank_idx < len(ranks):
+			rank = ranks[rank_idx]
+			out = pd.DataFrame()
 			division_idx = starting_division_idx
 			while division_idx < len(divisions):
-				division = divisions[division_idx]		
+				division = divisions[division_idx]
 				page = starting_page
-				while not quitEvent.is_set():				
-					self.msg = page					
+				while not quitEvent.is_set():
+					self.msg = page
 					save_progress(region, rank_idx, division_idx, page)
 					self.logger.info(f"saving progress to {rank_idx}, {division_idx}, {page}")
 					req = f'https://{self.region}.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/{rank}/{division}?page={page}'
@@ -87,10 +87,10 @@ class mainThread(threading.Thread):
 					data = json.loads(resp.content)
 					if resp.ok and data != []: #everything went correctly
 						page+=1
-						self.write_data(data)	
+						self.write_data(data)
 					elif resp.ok and data==[]: #reached the end of pages
 						break
-					else: # resp was not okay						
+					else: # resp was not okay
 						if resp.status_code == 429:
 							self.logger.warning("429 Rate limite exceeded, waiting another cycle")
 							time.sleep(1/rate)
@@ -104,26 +104,26 @@ class mainThread(threading.Thread):
 							break
 				starting_page = 1
 				division_idx += 1
-			starting_division_idx = 0			
+			starting_division_idx = 0
 			rank_idx += 1
 		self.msg = "done"
-	
+
 	def write_data(self, data):
 		conn = sqlite3.connect(self.database)
 		cursor = conn.cursor()
 		if not quitEvent.is_set():
 			with self.lock:
-				for d in data:								
+				for d in data:
 					query = "INSERT INTO summoners(summonerId, summonerName, tier, rank, region) "\
-							f"VALUES ('{d['summonerId']}','{d['summonerName']}','{d['tier']}','{d['rank']}','{self.region}')"									
+							f"VALUES ('{d['summonerId']}','{d['summonerName']}','{d['tier']}','{d['rank']}','{self.region}')"
 					cursor.execute(query)
 				self.logger.info(f"Committing {len(data)} entries to database")
 				conn.commit()
 
-		
+
 threads = list()
 for region in regions:
-	thread = mainThread(region, lock, database = 'data/data2.db')
+	thread = mainThread(region, lock, database = 'data/data.db')
 	threads.append(thread)
 
 for thread in threads:
