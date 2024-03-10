@@ -19,76 +19,81 @@ def signal_handler(signal, frame):
 	sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
-class mainThread(threading.Thread):
-	def __init__(self, region, lock, batchsize = 100, database = 'data/data.db',group=None, target=None, name=None, args=(), kwargs=None,daemon=None):
-		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)
-		self.region = region
-		self.lock = lock
-		self.batchsize = batchsize		
-		self.logger = utils.set_up_logger(name=region,file=f"data/status_{region}.log")		
-		self.msg = ""
-		self.database = database
+with open('pguser.txt','r') as f:
+	pgUsername = f.readline().strip()
+	pgPassword = f.readline().strip()
+	pgHost	   = f.readline().strip()
 
-	def run(self):		
-		region = self.region
+class mainThread(utils.mainThreadProto):
+	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games',
+				log_level = logging.INFO, group=None, target=None, name=None, daemon=True, args=(), kwargs=None):
+		super().__init__(region=region, tiers=tiers, database=database, batchsize=batchsize, num_batches=num_batches,
+						table=table, log_level=log_level, group=group, target=target, name=name,daemon=daemon,						
+						kwargs=kwargs)
+
+
+	def construct_endpoints(self):
 		queues = ['RANKED_SOLO_5x5']
 		queue = 'RANKED_SOLO_5x5'
-		baseurl = f'https://{region}.api.riotgames.com'
-		leagues = [f'/lol/league/v4/challengerleagues/by-queue/{queue}',
-				   f'/lol/league/v4/grandmasterleagues/by-queue/{queue}',
-				   f'/lol/league/v4/masterleagues/by-queue/{queue}'
-				  ]
-		names = ['CHALLENGER', 'GRANDMASTER', 'MASTER']
-		
-								
+		leagues = ['IRON', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'EMERALD', 'DIAMOND']
+		divisions = ['I','II','III','IV','V']
+		endpoints = {}
+		for league in leagues:
+		    for division in divisions:
+		        endpoints[league+" "+division] = f'/lol/league/v4/entries/{queue}/{league}/{division}'
+		# add '?page={page}'
+	def run(self):
+		baseurl = f'https://{self.region}.api.riotgames.com'
+		all_data = list()
+		for key in endpoints.keys():
+		    self.logger.info(f"Starting {key}")
+		    l = endpoints[key]
+		    quit = False
+		    page = 1
+		    while not quit:
+		        url = baseurl+l+f"?page={page}"
+		        resp = requests.get(url, headers=payload)
+				time.sleep(1/rate)
+		        if resp.ok:
+		            data = json.loads(resp.content)
+		            if len(data)>0:
+		                quit = False
+		                print(f"Finished page {page:03d}", end='\r')
+		                all_data += data
+		                page+=1
+		            else:
+		                quit = True
+				else:
+					self.msg = f"code {resp.status_code}"
+					if resp.status_code == 403:
+						self.logger.error(f"Response code {resp.status_code}, need to regenerate API key")
+						raise Exception(f"Forbidden, probably need to regenerate API key: {resp.status_code}")
+					elif resp.status_code == 429:
+						time.sleep(1/rate)
+					elif resp.status_code in [404, 415]:
+						accountId = '404'
+						self.logger.warning(f"Response code {resp.status_code} for summonerId={summonerId}, setting accountId=0")
+					elif resp.status_code == 400:
+						self.logger.error(f"Response code {resp.status_code}, bad request for '{req}'")
+						accountId = '400'
+					else:
+						self.logger.info(f"Response code {resp.status_code}, unhandled")
+					self.msg = f'E{resp.status_code}''
+		df = pd.DataFrame(all_data)
+
 		for idx, l in enumerate(leagues):
-			url = baseurl+l    
-			resp = requests.get(url, headers=payload)    
+			url = baseurl+l
+			resp = requests.get(url, headers=payload)
 			time.sleep(1/rate)
 			if resp.ok:
 				data = json.loads(resp.content)
-				self.write_data(data)				
-			else:
-				self.msg = f"code {resp.status_code}"				
-				if resp.status_code == 403:
-					self.logger.error(f"Response code {resp.status_code}, need to regenerate API key")
-					raise Exception(f"Forbidden, probably need to regenerate API key: {resp.status_code}")				
-				elif resp.status_code == 429:
-					time.sleep(1/rate)
-				elif resp.status_code in [404, 415]:
-					accountId = '404'
-					self.logger.warning(f"Response code {resp.status_code} for summonerId={summonerId}, setting accountId=0")
-				elif resp.status_code == 400:
-					self.logger.error(f"Response code {resp.status_code}, bad request for '{req}'")
-					accountId = '400'
-				else:
-					self.logger.info(f"Response code {resp.status_code}, unhandled")				
-				
-		
-		
-	def write_data(self,data):
-		#print(data['entries'][0])
-		conn = sqlite3.connect(self.database)
-		cursor = conn.cursor()
-		tier = data['tier']
-		if not quitEvent.is_set():
-			with self.lock:
-				for d in data['entries']:
-					self.logger.info(d)
-					query = "INSERT INTO summoners(summonerId, summonerName, tier, rank, region) "\
-							f"VALUES ('{d['summonerId']}','{d['summonerName']}','{tier}','{d['rank']}','{self.region}')"
-							
-					#print("\n",query,"\n")
-					cursor.execute(query)
-				self.logger.info(f"Committing {len(data)} entries to database")
-				conn.commit()
-		conn.close()
+				self.write_data(data)
 
 
 
 threads = list()
 for region in regions:
-	thread = mainThread(region, lock, database = 'data/data2.db')
+	thread = mainThread(region, lock, database = 'league', pginfo = {'username':pgUsername, 'password':pgPassword,'host':pgHost})
 	threads.append(thread)
 
 for thread in threads:
@@ -120,4 +125,3 @@ except KeyboardInterrupt:
 	exit(0)
 finally:
 	quitEvent.set()
-

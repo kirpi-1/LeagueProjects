@@ -4,7 +4,7 @@ import json
 import pandas as pd
 import numpy as np
 import sqlite3
-import psycopg2
+import psycopg
 from sqlalchemy import create_engine
 
 
@@ -15,11 +15,12 @@ quitEvent.clear()
 apikey = ""
 with open("apikey.txt",'r') as f:
 	apikey = f.read().strip()
-payload = {  
+payload = {
     "X-Riot-Token": apikey
 }
 rate = 90/120 # the rate at which to make new requests. Inverse for sleep timer
-regions = ['na1','br1','eun1','euw1','jp1','kr','la1','la2','oc1','ru','tr1']
+regions = ['na1','br1','eun1','euw1','jp1','kr','la1','la2','oc1','ru','tr1',
+'ph2','sg2','th2','tw2','vn2']
 
 pgUsername = ""
 pgPassword = ""
@@ -62,7 +63,7 @@ def load_list(filename):
 				l = l[1:]
 			if l[-1] == ')':
 				l=l[:-1]
-			l = l.replace("'","")			
+			l = l.replace("'","")
 			l = l.split(',')
 			out.append(l)
 			l = f.readline()
@@ -70,16 +71,17 @@ def load_list(filename):
 
 def set_up_logger(name="default", file="data/default.log", logFormat = '%(asctime)s %(levelname)s %(message)s', level=logging.INFO):
 	#logging set up
-	formatter = logging.Formatter(logFormat)		
+	formatter = logging.Formatter(logFormat)
 	handler = logging.FileHandler(file,encoding='utf-8')
 	handler.setFormatter(formatter)
+	handler.setLevel(level)
 	logger = logging.getLogger(name)
 	logger.setLevel(level)
 	logger.addHandler(handler)
 	return logger
-	
-	
-	
+
+
+
 def parse_date(start_date, end_date):
 	# takes in a YYYY-MM-DD string and returns a time.struct_time
 	out = [None, None]
@@ -90,61 +92,74 @@ def parse_date(start_date, end_date):
 				try:
 					year = int(t[0])
 					month = int(t[1])
-					day = int(t[2])										
+					day = int(t[2])
 					out[idx] = (year, month, day, 0, 0, 0, 0, 0, 0)
 				except ValueError:
-					print(f"error processing {d}. Needs to be in YYYY-MM-DD format")		
-	return out[0], out[1]	
+					print(f"error processing {d}. Needs to be in YYYY-MM-DD format")
+	return out[0], out[1]
 
-LIMIT_RETRIES = 5	
+
+
+LIMIT_RETRIES = 5
 class mainThreadProto(threading.Thread):
 	def __init__(self, region, tiers, database = 'league', batchsize = 100, num_batches = 10, table = 'games', log_level = logging.INFO,
-				group=None, target=None, name=None, args=(), kwargs=None,daemon=True):
-		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)		
+				group=None, target=None, name=None, daemon=True, args=(), kwargs=None):
+		super().__init__(group=group, target=target, name=name,kwargs=kwargs,daemon=daemon)
 		self.region = region
 		self.batchsize = batchsize
 		self.num_batches = num_batches
 		self.table = table
 		self.count = 0
-		self.index = 0		
+		self.index = 0
 		self.database = database
-		self.itemsLeft = -1		
-		self.msg = "init"		
-		self.tiers = tiers		
+		self.itemsLeft = -1
+		self.msg = "init"
+		self.tiers = tiers
 		self.logger = set_up_logger(name=region,file=f"data/status_{region}.log", level=log_level)
 		self.countQuery = ""
 		self.conn = None
 		self.cursor = None
-		self.engine = None		
-		
+
+	@staticmethod
+	def getRank(rank):
+		if rank.lower() == 'i':
+			return 1
+		elif rank.lower() == 'ii':
+			return 2
+		elif rank.lower() == 'iii':
+			return 3
+		elif rank.lower() == 'iv':
+			return 4
+		elif rank.lower() == 'v':
+			return 5
+
 	def getColumns(self):
-		return [d[0] for d in self.cursor.description]		
-	
+		return [d[0] for d in self.cursor.description]
+
 	def handleHTTPError(self, resp):
-		self.msg = f"c{resp.status_code}"			
+		self.msg = f"c{resp.status_code}"
+		r = resp.status_code
 		if resp.status_code == 403:
 			self.logger.error(f"Response code {resp.status_code}, need to regenerate API key")
-			raise Exception(f"Forbidden, probably need to regenerate API key: {resp.status_code}")				
-		elif resp.status_code in [404, 415]:							
-			self.logger.warning(f"Response code {resp.status_code}")			
-			return 404			
+			raise Exception(f"Forbidden, probably need to regenerate API key: {resp.status_code}")
+		elif resp.status_code in [404, 415]:
+			self.logger.warning(f"Response code {resp.status_code}")
 		elif resp.status_code == 400:
-			self.logger.error(f"Response code {resp.status_code}")			
-			return 400
+			self.logger.error(f"Response code {resp.status_code}")
 		elif resp.status_code == 429:
 			time.sleep(1/rate)
 			self.logger.warning(f"Response code 429, rate limit exceeded, sleeping one cycle")
 		else:
 			self.logger.info(f"Response code {resp.status_code}, unhandled")
-		
-		return None
-		
+		self.msg = f"E{resp.status_code}"
+		return r
+
 	def getItemsLeft(self):
-		self.logger.debug("Getting count of items that are left using: " + self.countQuery)		
+		self.logger.debug("Getting count of items that are left using: " + self.countQuery)
 		self.execute(self.countQuery, False)
-		self.itemsLeft, = self.cursor.fetchone()	
+		self.itemsLeft, = self.cursor.fetchone()
 		self.logger.info(f"{self.itemsLeft} items left")
-	
+
 	def request(self, req, retry_limit = LIMIT_RETRIES):
 		retry_counter=0
 		old_msg = self.msg
@@ -154,19 +169,19 @@ class mainThreadProto(threading.Thread):
 				time.sleep(1/rate)
 			except Exception as e:
 				self.logger.error(f"{str(e)} when requesting: {req}")
-				if retry_counter < retry_limit:					
+				if retry_counter < retry_limit:
 					retry_counter+=1
 					self.logger.error(f"Retrying {retry_counter}...")
 					self.msg = f"eREQ{retry_counter}"
-					time.sleep(1)										
+					time.sleep(1)
 				else:
 					self.logger.error(f"Exceeded max retries ({retry_limit})")
 					return None
-				
+
 			else:
-				self.msg = old_msg				
+				self.msg = old_msg
 				return resp
-	
+
 	def execute(self, query, commit = True, retry_limit = LIMIT_RETRIES):
 		retry_counter = 0
 		old_msg = self.msg
@@ -176,44 +191,48 @@ class mainThreadProto(threading.Thread):
 					self.initConn()
 				if self.cursor == None:
 					self.getCursor()
-				self.cursor.execute(query)				
-			except (psycopg2.DatabaseError, psycopg2.OperationalError) as error:
-				if retry_counter >= retry_limit:
-					self.logger.error("Reached max retries with query: " + str(error))
-					self.conn.rollback()					
-					self.msg = "ERR"
-					return True
+				self.cursor.execute(query)
+			except (psycopg.DatabaseError, psycopg.OperationalError) as error:
+				if type(error) is psycopg.errors.UniqueViolation:
+					self.logger.error(f"Unique Violation: {error}")
+					self.conn.rollback()
+					return error
 				else:
-					retry_counter += 1
-					self.logger.error(f"{str(error).strip()}, retrying {retry_counter}")
-					time.sleep(1)
-					self.reset()
-					
-			except (Exception, psycopg2.Error) as error:
+					if retry_counter >= retry_limit:
+						self.logger.error("Reached max retries with query: " + str(error))
+						self.conn.rollback()
+						self.msg = "ERR"
+						return error
+					else:
+						retry_counter += 1
+						self.logger.error(f"{str(error).strip()}, retrying {retry_counter}")
+						self.conn.rollback()
+						time.sleep(1)
+						self.reset()
+
+			except (Exception, psycopg.Error) as error:
 				self.logger.error(f"{str(error).strip()}")
 				self.conn.rollback()
 				self.msg = "ERR"
-				return True
+				return error
 			else:
 				if commit:
 					self.conn.commit()
 				self.msg = old_msg
-				return False
-		
-				
+				return None
+
 	def reset(self):
 		self.close()
 		self.connect()
 		self.getCursor()
-		
+
 	def connect(self):
 		conn = None
 		retry_counter = 0
 		while not quitEvent.is_set() and conn == None and retry_counter < LIMIT_RETRIES:
 			try:
 				self.logger.info("Trying to connect to database...")
-				conn = psycopg2.connect(dbname=self.database, user=pgUsername, password=pgPassword, host=pgHost)
-				engine = create_engine(f"postgresql+psycopg2://{pgUsername}:{pgPassword}@/{self.database}?host={pgHost}")					
+				conn = psycopg.connect(dbname=self.database, user=pgUsername, password=pgPassword, host=pgHost)
 			except Exception as err:
 				retry_counter += 1
 				self.logger.error(str(err))
@@ -221,17 +240,16 @@ class mainThreadProto(threading.Thread):
 				time.sleep(1)
 			else:
 				self.conn = conn
-				self.engine = engine
 				self.logger.info(f"Successfully connected to database, PID = 	{conn.info.backend_pid}")
-				self.msg = "SUCC"
-	
+				#self.msg = "SUCC"
+
 	def commit(self, retry_limit = LIMIT_RETRIES):
 		retry_counter = 0
 		while retry_counter < LIMIT_RETRIES:
-			try:				
-				self.logger.debug("Committing update")
+			try:
+				#self.logger.debug("Committing update")
 				self.conn.commit()
-			except psycopg2.OperationalError as e:				
+			except psycopg.OperationalError as e:
 				if retry_counter < retry_limit:
 					retry_counter+=1
 					self.logger.error(f"{str(e)}, connection probably timed out, retrying {retry_counter}")
@@ -239,10 +257,10 @@ class mainThreadProto(threading.Thread):
 				else:
 					self.logger.error("Max retry limit reached for committing to database")
 					return True
-			else:				
+			else:
 				break
 		return False
-	
+
 	def close(self):
 		if self.cursor:
 			self.cursor.close()
@@ -251,14 +269,14 @@ class mainThreadProto(threading.Thread):
 		self.logger.info("PostgreSQL connection closed")
 		self.conn = None
 		self.cursor = None
-	
+
 	def getCursor(self):
 		self.cursor = self.conn.cursor()
-		
+
 	def initConn(self):
 		self.connect()
 		self.getCursor()
-		
+
 def writeGameInit(pd_table, conn, keys, data_iter):
     """
     Execute SQL statement inserting data
@@ -270,10 +288,10 @@ def writeGameInit(pd_table, conn, keys, data_iter):
     keys : list of str
         Column names
     data_iter : Iterable that iterates the values to be inserted
-    """        
+    """
     # gets a DBAPI connection that can provide a cursor
     dbapi_conn = conn.connection
-    with dbapi_conn.cursor() as cur:        
+    with dbapi_conn.cursor() as cur:
         query = f"INSERT INTO {pd_table.name} (gameid, gamecreation, queueid, platformid, region, tier) VALUES "
         vals = list()
         for data in data_iter:
@@ -284,7 +302,7 @@ def writeGameInit(pd_table, conn, keys, data_iter):
             region = data[keys.index('region')]
             tier = data[keys.index('tier')]
             vals.append(f"({gameid}, {gamecreation}, {queueid}, '{platformid}', '{region}', '{tier}')")
-        query += ", ".join(vals) +" ON CONFLICT ON CONSTRAINT games_gameid_key DO NOTHING;"        
+        query += ", ".join(vals) +" ON CONFLICT ON CONSTRAINT games_gameid_key DO NOTHING;"
         cur.execute(query)
 
 def writePuuids(pd_table, conn, keys, data_iter):
@@ -298,10 +316,10 @@ def writePuuids(pd_table, conn, keys, data_iter):
     keys : list of str
         Column names
     data_iter : Iterable that iterates the values to be inserted
-    """        
+    """
     # gets a DBAPI connection that can provide a cursor
     dbapi_conn = conn.connection
-    with dbapi_conn.cursor() as cur:        
+    with dbapi_conn.cursor() as cur:
         query = f"INSERT INTO {pd_table.name} (puuid, accountid, region) VALUES "
         vals = list()
         for data in data_iter:
@@ -309,5 +327,5 @@ def writePuuids(pd_table, conn, keys, data_iter):
             accountid = data[keys.index('accountid')]
             region = data[keys.index('region')]
             vals.append(f"('{puuid}', '{accountid}', '{region}')")
-        query += ", ".join(vals) +" ON CONFLICT ON CONSTRAINT accountid UPDATE SET puuid=EXCLUDED.puuid;"        
+        query += ", ".join(vals) +" ON CONFLICT ON CONSTRAINT accountid UPDATE SET puuid=EXCLUDED.puuid;"
         cur.execute(query)

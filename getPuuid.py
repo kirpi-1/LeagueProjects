@@ -9,10 +9,10 @@ import pandas as pd
 import numpy as np
 import sqlite3
 import logging
-import psycopg2
+import psycopg
 import argparse
 import logging
-
+import datetime
 # given a database that is populated with games, get new data based on the summoners who have been playing
 
 parser = argparse.ArgumentParser()
@@ -92,16 +92,14 @@ class mainThread(utils.mainThreadProto):
 				cols = None
 				self.logger.info(f"Starting batch {count+1} of {self.num_batches}")
 				# get {batchsize} {tier} summoners in {region} that haven't been accessed yet
-				if self.execute(query, False):
+				err = self.execute(query, False)
+				if err is not None:
 					self.logger.error("Error getting next batch of data")
 					time.sleep(5)
 					continue
 
 				records = self.cursor.fetchall()
 				cols = self.getColumns()
-
-				#close the connection so it doesn't idle out
-				self.close()
 
 				puuidIdx = cols.index('puuid')
 				summoneridIdx = cols.index('summonerid')
@@ -114,6 +112,7 @@ class mainThread(utils.mainThreadProto):
 					r = dict()
 					summonerId = record[summoneridIdx]
 					req = f'https://{self.region}.api.riotgames.com/lol/summoner/v4/summoners/{summonerId}'
+					self.logger.info(f"requesting: {req}")
 					resp = self.request(req)
 					time.sleep(1/rate)
 
@@ -126,10 +125,10 @@ class mainThread(utils.mainThreadProto):
 						#puuids.append(data['puuid'])
 						#summonersids.append(data['id'])
 						#accountids.append(data['accountId'])
-
-					else:
+					else: # resp was not okay
+						res = self.handleHTTPError(resp)
 						self.logger.debug(f"error when executing: '{req}'")
-						if self.handleHTTPError(resp)==404:
+						if res==404:
 							r['puuid'] = 404
 							r['summonerid'] = summonerId
 							r['accountid'] = record[accountidIdx]
@@ -143,6 +142,7 @@ class mainThread(utils.mainThreadProto):
 				self.initConn()
 				self.msg = "WRITE"
 				self.write_data(newRecords)
+				self.close()
 				#df = pd.DataFrame({'puuid':puuids, 'summonerid':summonerids, 'accountid':accountids})
 				#df['region'] = self.region
 				#if len(df)>0:
@@ -159,12 +159,13 @@ class mainThread(utils.mainThreadProto):
 		global games_cols
 		self.logger.info("Writing data...")
 		updateCount = 0
+		now = datetime.datetime.now()
 
 		if len(newRecords)>0:
 			for idx,r in enumerate(newRecords):
 				self.logger.debug(f"Writing {idx} of {len(newRecords)}, id={r['summonerid']},puuid={r['puuid']}")
 
-				updateQuery = f"UPDATE summoners SET puuid='{r['puuid']}', accountid='{r['accountid']}' WHERE summonerid='{r['summonerid']}'"
+				updateQuery = f"UPDATE summoners SET puuid='{r['puuid']}', accountid='{r['accountid']}', last_updated='{now}' WHERE summonerid='{r['summonerid']}'"
 				self.logger.debug(updateQuery)
 				err = self.execute(updateQuery, commit=False)
 				self.msg = str(f"W{idx}")
@@ -172,8 +173,7 @@ class mainThread(utils.mainThreadProto):
 					self.logger.error("something went wrong writing")
 				else:
 					updateCount += 1
-
-		self.commit()
+				self.commit()
 		self.logger.info(f"Updating data for {updateCount} of {len(newRecords)} entries")
 
 
@@ -188,39 +188,31 @@ for region in regions:
 for thread in threads:
 	thread.start()
 
+
+
+padding = 10
 msg = ""
 for region in regions:
-	msg = msg+region+"\t"
+	msg = f"{msg}"+f"{region:^{padding}}"
 msg+="running threads"
-if not args.quiet:
-	print(msg)
+print(msg)
 try:
 	while not quitEvent.is_set():
 		numRunningThreads = 0
 		for thread in threads:
 			if thread.is_alive():
 				numRunningThreads+=1
-			else:
-				thread.msg = "EXIT"
-
-
+		if numRunningThreads == 0:
+			print("\n\ndone!")
+			break
 		msg = "\r"
 		for thread in threads:
-			msg = msg+str(thread.msg)+"\t"
+			msg = f"{msg}"+f"{str(thread.msg):^{padding}}"
 		msg+=str(numRunningThreads)+"\t"
-
-		if not args.quiet:
-			print("\r" + " "*120, end="")
-			print(msg,end="")
-		if numRunningThreads==0:
-			break
+		print(msg,end="")
 		time.sleep(1)
 except KeyboardInterrupt:
-	for thread in threads:
-		if thread.is_alive():
-			thread
 	quitEvent.set()
-
 	exit(0)
 finally:
 	quitEvent.set()
